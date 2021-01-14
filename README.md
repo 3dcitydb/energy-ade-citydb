@@ -1,4 +1,4 @@
-# energy-ade-citydb
+# Energy ADE extension for the 3D City Database
 This is a 3DCityDB extension for the **Energy Application Domain Extension** (Energy ADE) for CityGML.
 The Energy ADE extends CityGML by features and properties necessary to perform energy simulations and to store and
 exchange the corresponding results.
