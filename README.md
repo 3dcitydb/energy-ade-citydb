@@ -45,6 +45,9 @@ ADE extension with the Importer/Exporter are described in the 3DCityDB online do
 
 * **[How to the Energy ADE extension with the Importer/Exporter](https://3dcitydb-docs.readthedocs.io/en/latest/impexp/plugins/ade-manager.html#workflow-of-extending-the-import-export-tool)**
 
+Simple datasets for testing the Energy ADE extension can be found in the [resources/datasets](https://github.com/3dcitydb/energy-ade-citydb/tree/main/resources/datasets)
+folder of this repository.
+
 ## Technical details
 The relational schema for the Energy ADE has been fully automatically derived from the XML schemas using the ADE Manager
 Plugin of the Importer/Exporter. This ADE-to-3DCityDB mapping should work for all CityGML ADE XML schemas and is documented
