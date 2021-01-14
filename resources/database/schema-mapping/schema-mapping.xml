@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schemaMapping xmlns="http://www.3dcitydb.org/database/schema/1.0">
+    <metadata>
+        <name>KitEnergyADE</name>
+        <version>1.0</version>
+        <description>KitEnergyADE</description>
+        <dbPrefix>ng</dbPrefix>
+    </metadata>
+    <applicationSchemas>
+        <schema id="ng" isADERoot="true">
+            <namespace context="citygml-2.0">http://www.sig3d.org/citygml/2.0/energy/1.0</namespace>
+        </schema>
+    </applicationSchemas>
+    <complexTypes>
+        <complexType id="ng_VolumeTypeType" table="ng_volumetype" objectClassId="50000" path="VolumeType" schema="ng">
+            <attribute column="type" type="string" minOccurs="1" maxOccurs="1" path="type" schema="ng"/>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="value" schema="ng">
+                <attribute column="value_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="value" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </complexType>
+        <complexType id="ng_FloorAreaType" table="ng_floorarea" objectClassId="50003" path="FloorArea" schema="ng">
+            <attribute column="type" type="string" minOccurs="1" maxOccurs="1" path="type" schema="ng"/>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="value" schema="ng">
+                <attribute column="value_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="value" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </complexType>
+        <complexType id="ng_HeightAboveGroundType" table="ng_heightaboveground" objectClassId="50004" path="HeightAboveGround" schema="ng">
+            <attribute column="heightreference" type="string" minOccurs="1" maxOccurs="1" path="heightReference" schema="ng"/>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="value" schema="ng">
+                <attribute column="value_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="value" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </complexType>
+        <complexType id="ng_HeatExchangeTypeType" table="ng_heatexchangetype" objectClassId="50009" path="HeatExchangeType" schema="ng">
+            <complexAttribute maxOccurs="1" path="convectiveFraction" schema="ng">
+                <attribute column="convectivefraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="convectivefraction" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="latentFraction" schema="ng">
+                <attribute column="latentfraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="latentfraction" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="radiantFraction" schema="ng">
+                <attribute column="radiantfraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="radiantfraction" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="totalValue" schema="ng">
+                <attribute column="totalvalue_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="totalvalue" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </complexType>
+        <complexType id="ng_TransmittanceType" table="ng_transmittance" objectClassId="50010" path="Transmittance" schema="ng">
+            <complexAttribute minOccurs="1" maxOccurs="1" path="fraction" schema="ng">
+                <attribute column="fraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="fraction" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <attribute column="wavelengthrange" type="string" minOccurs="1" maxOccurs="1" path="wavelengthRange" schema="ng"/>
+        </complexType>
+        <complexType id="ng_OpticalPropertiesType" table="ng_opticalproperties" objectClassId="50016" path="OpticalProperties" schema="ng">
+            <complexProperty refType="ng_ReflectanceType" path="reflectance" schema="ng">
+                <join table="ng_reflectance" fromColumn="id" toColumn="opticalproper_reflectance_id" toRole="child"/>
+            </complexProperty>
+            <complexProperty refType="ng_TransmittanceType" path="transmittance" schema="ng">
+                <join table="ng_transmittance" fromColumn="id" toColumn="opticalprope_transmittanc_id" toRole="child"/>
+            </complexProperty>
+            <complexAttribute maxOccurs="1" path="glazingRatio" schema="ng">
+                <attribute column="glazingratio_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="glazingratio" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </complexType>
+        <complexType id="ng_ReflectanceType" table="ng_reflectance" objectClassId="50018" path="Reflectance" schema="ng">
+            <complexAttribute minOccurs="1" maxOccurs="1" path="fraction" schema="ng">
+                <attribute column="fraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="fraction" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <attribute column="surface" type="string" minOccurs="1" maxOccurs="1" path="surface" schema="ng"/>
+            <attribute column="wavelengthrange" type="string" minOccurs="1" maxOccurs="1" path="wavelengthRange" schema="ng"/>
+        </complexType>
+        <complexType id="ng_TimeValuesPropertiesType" table="ng_timevaluesproperties" objectClassId="50029" path="TimeValuesProperties" schema="ng">
+            <attribute column="acquisitionmethod" type="string" minOccurs="1" maxOccurs="1" path="acquisitionMethod" schema="ng"/>
+            <attribute column="interpolationtype" type="string" minOccurs="1" maxOccurs="1" path="interpolationType" schema="ng"/>
+            <attribute column="qualitydescription" type="string" maxOccurs="1" path="qualityDescription" schema="ng"/>
+            <attribute column="source" type="string" maxOccurs="1" path="source" schema="ng"/>
+            <attribute column="thematicdescription" type="string" maxOccurs="1" path="thematicDescription" schema="ng"/>
+        </complexType>
+        <complexType id="ng_PeriodOfYearType" table="ng_periodofyear" objectClassId="50031" path="PeriodOfYear" schema="ng">
+            <complexProperty refType="ng_DailyScheduleType" minOccurs="1" path="dailySchedule" schema="ng">
+                <join table="ng_dailyschedule" fromColumn="id" toColumn="periodofyear_dailyschedul_id" toRole="child"/>
+            </complexProperty>
+            <complexProperty minOccurs="1" maxOccurs="1" path="period" schema="ng">
+                <type path="TimePeriod" schema="ng">
+                    <attribute column="timeperiodprop_beginposition" type="timestamp" minOccurs="1" maxOccurs="1" path="beginPosition" schema="ng"/>
+                    <attribute column="timeperiodproper_endposition" type="timestamp" minOccurs="1" maxOccurs="1" path="endPosition" schema="ng"/>
+                </type>
+            </complexProperty>
+        </complexType>
+        <complexType id="ng_DailyScheduleType" table="ng_dailyschedule" objectClassId="50032" path="DailySchedule" schema="ng">
+            <attribute column="daytype" type="string" minOccurs="1" maxOccurs="1" path="dayType" schema="ng"/>
+            <objectProperty target="ng_AbstractTimeSeriesType" relationType="composition" minOccurs="1" maxOccurs="1" path="schedule" schema="ng">
+                <join table="ng_timeseries" fromColumn="schedule_id" toColumn="id" toRole="parent">
+                    <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                </join>
+            </objectProperty>
+        </complexType>
+    </complexTypes>
+    <objectTypes>
+        <objectType id="ng_WeatherDataType" table="ng_weatherdata" objectClassId="50005" path="WeatherData" schema="ng">
+            <extension base="AbstractGMLType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <attribute column="weatherdatatype" type="string" minOccurs="1" maxOccurs="1" path="weatherDataType" schema="ng"/>
+            <objectProperty target="ng_AbstractTimeSeriesType" relationType="composition" minOccurs="1" maxOccurs="1" path="values" schema="ng">
+                <join table="ng_timeseries" fromColumn="values_id" toColumn="id" toRole="parent">
+                    <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                </join>
+            </objectProperty>
+            <geometryProperty inlineColumn="position" type="Point" maxOccurs="1" path="position" schema="ng"/>
+        </objectType>
+        <objectType abstract="true" id="ng_AbstractTimeSeriesType" table="ng_timeseries" objectClassId="50007" path="AbstractTimeSeries" schema="ng">
+            <extension base="AbstractGMLType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <complexProperty minOccurs="1" maxOccurs="1" path="variableProperties" schema="ng">
+                <type path="TimeValuesProperties" schema="ng">
+                    <attribute column="timevaluesprop_acquisitionme" type="string" minOccurs="1" maxOccurs="1" path="acquisitionMethod" schema="ng"/>
+                    <attribute column="timevaluesprop_interpolation" type="string" minOccurs="1" maxOccurs="1" path="interpolationType" schema="ng"/>
+                    <attribute column="timevaluesprop_qualitydescri" type="string" maxOccurs="1" path="qualityDescription" schema="ng"/>
+                    <attribute column="timevaluespropertiest_source" type="string" maxOccurs="1" path="source" schema="ng"/>
+                    <attribute column="timevaluesprop_thematicdescr" type="string" maxOccurs="1" path="thematicDescription" schema="ng"/>
+                </type>
+            </complexProperty>
+        </objectType>
+        <objectType abstract="true" id="ng_AbstractScheduleType" table="ng_schedule" objectClassId="50024" path="AbstractSchedule" schema="ng">
+            <extension base="AbstractGMLType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+        </objectType>
+        <objectType id="ng_DailyPatternScheduleType" table="ng_schedule" objectClassId="50030" path="DailyPatternSchedule" schema="ng">
+            <extension base="ng_AbstractScheduleType"/>
+            <complexProperty refType="ng_PeriodOfYearType" minOccurs="1" path="periodOfYear" schema="ng">
+                <join table="ng_periodofyear" fromColumn="id" toColumn="schedule_periodofyear_id" toRole="child"/>
+            </complexProperty>
+        </objectType>
+        <objectType id="ng_RegularTimeSeriesType" table="ng_regulartimeseries" objectClassId="50033" path="RegularTimeSeries" schema="ng">
+            <extension base="ng_AbstractTimeSeriesType">
+                <join table="ng_timeseries" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="timeInterval" schema="ng">
+                <attribute column="timeinterval_unit" type="string" path="@unit" schema="ng"/>
+                <attribute column="timeinterval_radix" type="integer" path="@radix" schema="ng"/>
+                <attribute column="timeinterval_factor" type="integer" path="@factor" schema="ng"/>
+                <attribute column="timeinterval" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="values" schema="ng">
+                <attribute column="values_" type="clob" path="." schema="ng"/>
+                <attribute column="values_uom" type="string" path="@uom" schema="ng"/>
+            </complexAttribute>
+            <complexProperty minOccurs="1" maxOccurs="1" path="temporalExtent" schema="ng">
+                <type path="TimePeriod" schema="ng">
+                    <attribute column="timeperiodprop_beginposition" type="timestamp" minOccurs="1" maxOccurs="1" path="beginPosition" schema="ng"/>
+                    <attribute column="timeperiodproper_endposition" type="timestamp" minOccurs="1" maxOccurs="1" path="endPosition" schema="ng"/>
+                </type>
+            </complexProperty>
+        </objectType>
+        <objectType id="ng_RegularTimeSeriesFileType" table="ng_regulartimeseriesfile" objectClassId="50034" path="RegularTimeSeriesFile" schema="ng">
+            <extension base="ng_AbstractTimeSeriesType">
+                <join table="ng_timeseries" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <attribute column="uom" type="string" minOccurs="1" maxOccurs="1" path="uom" schema="ng"/>
+            <attribute column="file_" type="string" minOccurs="1" maxOccurs="1" path="file" schema="ng"/>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="timeInterval" schema="ng">
+                <attribute column="timeinterval_unit" type="string" path="@unit" schema="ng"/>
+                <attribute column="timeinterval_radix" type="integer" path="@radix" schema="ng"/>
+                <attribute column="timeinterval_factor" type="integer" path="@factor" schema="ng"/>
+                <attribute column="timeinterval" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <attribute column="numberofheaderlines" type="integer" maxOccurs="1" path="numberOfHeaderLines" schema="ng"/>
+            <attribute column="fieldseparator" type="string" minOccurs="1" maxOccurs="1" path="fieldSeparator" schema="ng"/>
+            <attribute column="recordseparator" type="string" maxOccurs="1" path="recordSeparator" schema="ng"/>
+            <attribute column="decimalsymbol" type="string" maxOccurs="1" path="decimalSymbol" schema="ng"/>
+            <attribute column="valuecolumnnumber" type="integer" maxOccurs="1" path="valueColumnNumber" schema="ng"/>
+            <complexProperty minOccurs="1" maxOccurs="1" path="temporalExtent" schema="ng">
+                <type path="TimePeriod" schema="ng">
+                    <attribute column="timeperiodprop_beginposition" type="timestamp" minOccurs="1" maxOccurs="1" path="beginPosition" schema="ng"/>
+                    <attribute column="timeperiodproper_endposition" type="timestamp" minOccurs="1" maxOccurs="1" path="endPosition" schema="ng"/>
+                </type>
+            </complexProperty>
+        </objectType>
+    </objectTypes>
+    <featureTypes>
+        <featureType abstract="true" id="ng_AbstractThermalZoneType" table="ng_thermalzone" objectClassId="50001" path="AbstractThermalZone" schema="ng">
+            <extension base="AbstractCityObjectType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <featureProperty target="ng_AbstractUsageZoneType" path="contains" schema="ng">
+                <join table="ng_usagezone" fromColumn="id" toColumn="thermalzone_contains_id" toRole="child"/>
+            </featureProperty>
+        </featureType>
+        <featureType abstract="true" id="ng_AbstractUsageZoneType" table="ng_usagezone" objectClassId="50002" path="AbstractUsageZone" schema="ng">
+            <extension base="AbstractCityObjectType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+        </featureType>
+        <featureType id="ng_EnergyDemandType" table="ng_energydemand" objectClassId="50006" path="EnergyDemand" schema="ng">
+            <extension base="AbstractFeatureType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <objectProperty target="ng_AbstractTimeSeriesType" relationType="composition" minOccurs="1" maxOccurs="1" path="energyAmount" schema="ng">
+                <join table="ng_timeseries" fromColumn="energyamount_id" toColumn="id" toRole="parent">
+                    <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                </join>
+            </objectProperty>
+            <attribute column="enduse" type="string" minOccurs="1" maxOccurs="1" path="endUse" schema="ng"/>
+            <complexAttribute maxOccurs="1" path="maximumLoad" schema="ng">
+                <attribute column="maximumload_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="maximumload" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="energyCarrierType" schema="ng">
+                <attribute column="energycarriertype_codespace" type="string" path="@codespace" schema="ng"/>
+                <attribute column="energycarriertype" type="string" path="." schema="ng"/>
+            </complexAttribute>
+            <featureProperty target="AbstractCityObjectType" path="demandedBy" schema="ng">
+                <joinTable table="ng_energydem_to_cityobjec">
+                    <join table="ng_energydemand" fromColumn="energydemand_id" toColumn="id" toRole="parent"/>
+                    <inverseJoin table="cityobject" fromColumn="cityobject_id" toColumn="id" toRole="parent">
+                        <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                    </inverseJoin>
+                </joinTable>
+            </featureProperty>
+        </featureType>
+        <featureType abstract="true" id="ng_AbstractConstructionType" table="ng_construction" objectClassId="50008" path="AbstractConstruction" schema="ng">
+            <extension base="AbstractFeatureType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+        </featureType>
+        <featureType id="ng_ThermalBoundaryType" table="ng_thermalboundary" objectClassId="50011" path="ThermalBoundary" schema="ng">
+            <extension base="AbstractCityObjectType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <attribute column="thermalboundarytype" type="string" minOccurs="1" maxOccurs="1" path="thermalBoundaryType" schema="ng"/>
+            <complexAttribute maxOccurs="1" path="azimuth" schema="ng">
+                <attribute column="azimuth_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="azimuth" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="inclination" schema="ng">
+                <attribute column="inclination_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="inclination" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="area" schema="ng">
+                <attribute column="area_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="area" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <geometryProperty refColumn="surfacegeometry_id" type="MultiSurface" maxOccurs="1" path="surfaceGeometry" schema="ng"/>
+            <featureProperty target="ng_AbstractConstructionType" relationType="aggregation" maxOccurs="1" path="construction" schema="ng">
+                <join table="ng_construction" fromColumn="construction_id" toColumn="id" toRole="parent"/>
+            </featureProperty>
+            <featureProperty target="ng_ThermalOpeningType" relationType="composition" path="contains" schema="ng">
+                <join table="ng_thermalopening" fromColumn="id" toColumn="thermalboundary_contains_id" toRole="child"/>
+            </featureProperty>
+            <featureProperty target="ng_ThermalZoneType" minOccurs="1" maxOccurs="2" path="delimits" schema="ng">
+                <joinTable table="ng_ther_boun_to_ther_deli">
+                    <join table="ng_thermalboundary" fromColumn="thermalboundary_delimits_id" toColumn="id" toRole="parent"/>
+                    <inverseJoin table="ng_thermalzone" fromColumn="thermalzone_boundedby_id" toColumn="id" toRole="parent"/>
+                </joinTable>
+            </featureProperty>
+        </featureType>
+        <featureType id="ng_ThermalOpeningType" table="ng_thermalopening" objectClassId="50012" path="ThermalOpening" schema="ng">
+            <extension base="AbstractCityObjectType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <complexAttribute maxOccurs="1" path="area" schema="ng">
+                <attribute column="area_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="area" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <featureProperty target="ng_AbstractConstructionType" relationType="aggregation" maxOccurs="1" path="construction" schema="ng">
+                <join table="ng_construction" fromColumn="construction_id" toColumn="id" toRole="parent"/>
+            </featureProperty>
+            <geometryProperty refColumn="surfacegeometry_id" type="MultiSurface" maxOccurs="1" path="surfaceGeometry" schema="ng"/>
+        </featureType>
+        <featureType id="ng_ThermalZoneType" table="ng_thermalzone" objectClassId="50013" path="ThermalZone" schema="ng">
+            <extension base="ng_AbstractThermalZoneType"/>
+            <complexProperty refType="ng_FloorAreaType" path="floorArea" schema="ng">
+                <join table="ng_floorarea" fromColumn="id" toColumn="thermalzone_floorarea_id" toRole="child"/>
+            </complexProperty>
+            <complexProperty refType="ng_VolumeTypeType" path="volume" schema="ng">
+                <join table="ng_volumetype" fromColumn="id" toColumn="thermalzone_volume_id" toRole="child"/>
+            </complexProperty>
+            <complexAttribute maxOccurs="1" path="infiltrationRate" schema="ng">
+                <attribute column="infiltrationrate_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="infiltrationrate" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <attribute column="iscooled" type="boolean" minOccurs="1" maxOccurs="1" path="isCooled" schema="ng"/>
+            <attribute column="isheated" type="boolean" minOccurs="1" maxOccurs="1" path="isHeated" schema="ng"/>
+            <geometryProperty refColumn="volumegeometry_id" type="AbstractSolid" maxOccurs="1" path="volumeGeometry" schema="ng"/>
+            <featureProperty target="ng_ThermalBoundaryType" relationType="composition" path="boundedBy" schema="ng">
+                <join table="ng_thermalboundary" fromColumn="id" toColumn="thermalzone_boundedby_id" toRole="child"/>
+            </featureProperty>
+        </featureType>
+        <featureType abstract="true" id="ng_AbstractMaterialType" table="ng_material" objectClassId="50014" path="AbstractMaterial" schema="ng">
+            <extension base="AbstractFeatureType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+        </featureType>
+        <featureType id="ng_ConstructionType" table="ng_construction" objectClassId="50015" path="Construction" schema="ng">
+            <extension base="ng_AbstractConstructionType"/>
+            <complexAttribute maxOccurs="1" path="uValue" schema="ng">
+                <attribute column="uvalue_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="uvalue" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexProperty refType="ng_OpticalPropertiesType" maxOccurs="1" path="opticalProperties" schema="ng">
+                <join table="ng_opticalproperties" fromColumn="opticalproperties_id" toColumn="id" toRole="parent"/>
+            </complexProperty>
+            <featureProperty target="ng_LayerType" relationType="composition" path="layer" schema="ng">
+                <join table="ng_layer" fromColumn="id" toColumn="construction_layer_id" toRole="child"/>
+            </featureProperty>
+        </featureType>
+        <featureType id="ng_LayerType" table="ng_layer" objectClassId="50017" path="Layer" schema="ng">
+            <extension base="AbstractFeatureType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <featureProperty target="ng_LayerComponentType" relationType="composition" minOccurs="1" path="layerComponent" schema="ng">
+                <join table="ng_layercomponent" fromColumn="id" toColumn="layer_layercomponent_id" toRole="child"/>
+            </featureProperty>
+        </featureType>
+        <featureType id="ng_LayerComponentType" table="ng_layercomponent" objectClassId="50019" path="LayerComponent" schema="ng">
+            <extension base="AbstractFeatureType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <complexAttribute maxOccurs="1" path="areaFraction" schema="ng">
+                <attribute column="areafraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="areafraction" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="thickness" schema="ng">
+                <attribute column="thickness_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="thickness" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <featureProperty target="ng_AbstractMaterialType" relationType="composition" minOccurs="1" maxOccurs="1" path="material" schema="ng">
+                <join table="ng_material" fromColumn="material_id" toColumn="id" toRole="parent">
+                    <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                </join>
+            </featureProperty>
+        </featureType>
+        <featureType id="ng_GasType" table="ng_gas" objectClassId="50020" path="Gas" schema="ng">
+            <extension base="ng_AbstractMaterialType">
+                <join table="ng_material" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <attribute column="isventilated" type="boolean" maxOccurs="1" path="isVentilated" schema="ng"/>
+            <complexAttribute maxOccurs="1" path="rValue" schema="ng">
+                <attribute column="rvalue_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="rvalue" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </featureType>
+        <featureType id="ng_SolidMaterialType" table="ng_solidmaterial" objectClassId="50021" path="SolidMaterial" schema="ng">
+            <extension base="ng_AbstractMaterialType">
+                <join table="ng_material" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <complexAttribute maxOccurs="1" path="conductivity" schema="ng">
+                <attribute column="conductivity_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="conductivity" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="density" schema="ng">
+                <attribute column="density_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="density" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="permeance" schema="ng">
+                <attribute column="permeance_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="permeance" type="double" path="." schema="ng"/>
+            </complexAttribute>
+            <complexAttribute maxOccurs="1" path="specificHeat" schema="ng">
+                <attribute column="specificheat_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="specificheat" type="double" path="." schema="ng"/>
+            </complexAttribute>
+        </featureType>
+        <featureType id="ng_DHWFacilitiesType" table="ng_facilities" objectClassId="50022" path="DHWFacilities" schema="ng">
+            <extension base="ng_FacilitiesType"/>
+        </featureType>
+        <featureType id="ng_FacilitiesType" table="ng_facilities" objectClassId="50023" path="Facilities" schema="ng">
+            <extension base="AbstractCityObjectType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <objectProperty target="ng_AbstractScheduleType" relationType="composition" maxOccurs="1" path="operationSchedule" schema="ng">
+                <join table="ng_schedule" fromColumn="operationschedule_id" toColumn="id" toRole="parent"/>
+            </objectProperty>
+            <complexProperty refType="ng_HeatExchangeTypeType" maxOccurs="1" path="heatDissipation" schema="ng">
+                <join table="ng_heatexchangetype" fromColumn="heatdissipation_id" toColumn="id" toRole="parent"/>
+            </complexProperty>
+        </featureType>
+        <featureType id="ng_ElectricalAppliancesType" table="ng_facilities" objectClassId="50025" path="ElectricalAppliances" schema="ng">
+            <extension base="ng_FacilitiesType"/>
+        </featureType>
+        <featureType id="ng_LightingFacilitiesType" table="ng_facilities" objectClassId="50026" path="LightingFacilities" schema="ng">
+            <extension base="ng_FacilitiesType"/>
+        </featureType>
+        <featureType id="ng_OccupantsType" table="ng_occupants" objectClassId="50027" path="Occupants" schema="ng">
+            <extension base="AbstractFeatureType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <complexProperty refType="ng_HeatExchangeTypeType" maxOccurs="1" path="heatDissipation" schema="ng">
+                <join table="ng_heatexchangetype" fromColumn="heatdissipation_id" toColumn="id" toRole="parent"/>
+            </complexProperty>
+            <attribute column="numberofoccupants" type="integer" maxOccurs="1" path="numberOfOccupants" schema="ng"/>
+            <objectProperty target="ng_AbstractScheduleType" relationType="composition" maxOccurs="1" path="occupancyRate" schema="ng">
+                <join table="ng_schedule" fromColumn="occupancyrate_id" toColumn="id" toRole="parent"/>
+            </objectProperty>
+        </featureType>
+        <featureType id="ng_UsageZoneType" table="ng_usagezone" objectClassId="50028" path="UsageZone" schema="ng">
+            <extension base="ng_AbstractUsageZoneType"/>
+            <objectProperty target="ng_AbstractScheduleType" relationType="composition" maxOccurs="1" path="coolingSchedule" schema="ng">
+                <join table="ng_schedule" fromColumn="coolingschedule_id" toColumn="id" toRole="parent"/>
+            </objectProperty>
+            <objectProperty target="ng_AbstractScheduleType" relationType="composition" maxOccurs="1" path="heatingSchedule" schema="ng">
+                <join table="ng_schedule" fromColumn="heatingschedule_id" toColumn="id" toRole="parent"/>
+            </objectProperty>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="usageZoneType" schema="ng">
+                <attribute column="usagezonetype_codespace" type="string" path="@codespace" schema="ng"/>
+                <attribute column="usagezonetype" type="string" path="." schema="ng"/>
+            </complexAttribute>
+            <objectProperty target="ng_AbstractScheduleType" relationType="composition" maxOccurs="1" path="ventilationSchedule" schema="ng">
+                <join table="ng_schedule" fromColumn="ventilationschedule_id" toColumn="id" toRole="parent"/>
+            </objectProperty>
+            <complexProperty refType="ng_FloorAreaType" path="floorArea" schema="ng">
+                <join table="ng_floorarea" fromColumn="id" toColumn="usagezone_floorarea_id" toRole="child"/>
+            </complexProperty>
+            <featureProperty target="ng_OccupantsType" relationType="composition" path="occupiedBy" schema="ng">
+                <join table="ng_occupants" fromColumn="id" toColumn="usagezone_occupiedby_id" toRole="child"/>
+            </featureProperty>
+            <featureProperty target="ng_FacilitiesType" relationType="composition" path="equippedWith" schema="ng">
+                <join table="ng_facilities" fromColumn="id" toColumn="usagezone_equippedwith_id" toRole="child">
+                    <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                </join>
+            </featureProperty>
+        </featureType>
+        <featureType id="ng_WeatherStationType" table="ng_weatherstation" objectClassId="50035" topLevel="true" path="WeatherStation" schema="ng">
+            <extension base="AbstractCityObjectType">
+                <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
+            </extension>
+            <attribute column="stationname" type="string" maxOccurs="1" path="stationName" schema="ng"/>
+            <geometryProperty inlineColumn="position" type="Point" maxOccurs="1" path="position" schema="ng"/>
+            <objectProperty target="ng_WeatherDataType" path="parameter" schema="ng">
+                <join table="ng_weatherdata" fromColumn="id" toColumn="weatherstation_parameter_id" toRole="child"/>
+            </objectProperty>
+            <attribute column="genericapplicationpropertyof" type="clob" path="_GenericApplicationPropertyOfWeatherStation" schema="ng"/>
+        </featureType>
+    </featureTypes>
+    <propertyInjections>
+        <propertyInjection table="ng_building" defaultBase="AbstractBuildingType">
+            <join table="ng_building" fromColumn="ID" toColumn="ID" toRole="child"/>
+            <complexAttribute maxOccurs="1" path="buildingType" schema="ng">
+                <attribute column="buildingtype_codespace" type="string" path="@codespace" schema="ng"/>
+                <attribute column="buildingtype" type="string" path="." schema="ng"/>
+            </complexAttribute>
+            <attribute column="constructionweight" type="string" maxOccurs="1" path="constructionWeight" schema="ng"/>
+            <complexProperty refType="ng_VolumeTypeType" path="volume" schema="ng">
+                <join table="ng_volumetype" fromColumn="id" toColumn="building_volume_id" toRole="child"/>
+            </complexProperty>
+            <geometryProperty inlineColumn="referencepoint" type="Point" maxOccurs="1" path="referencePoint" schema="ng"/>
+            <featureProperty target="ng_AbstractThermalZoneType" relationType="composition" path="thermalZone" schema="ng">
+                <join table="ng_thermalzone" fromColumn="id" toColumn="building_thermalzone_id" toRole="child"/>
+            </featureProperty>
+            <featureProperty target="ng_AbstractUsageZoneType" relationType="composition" path="usageZone" schema="ng">
+                <join table="ng_usagezone" fromColumn="id" toColumn="building_usagezone_id" toRole="child"/>
+            </featureProperty>
+            <complexProperty refType="ng_FloorAreaType" path="floorArea" schema="ng">
+                <join table="ng_floorarea" fromColumn="id" toColumn="building_floorarea_id" toRole="child"/>
+            </complexProperty>
+            <complexProperty refType="ng_HeightAboveGroundType" path="heightAboveGround" schema="ng">
+                <join table="ng_heightaboveground" fromColumn="id" toColumn="building_heightabovegroun_id" toRole="child"/>
+            </complexProperty>
+        </propertyInjection>
+        <propertyInjection table="ng_cityobject" defaultBase="AbstractCityObjectType">
+            <join table="ng_cityobject" fromColumn="ID" toColumn="ID" toRole="child"/>
+            <objectProperty target="ng_WeatherDataType" relationType="association" path="weatherData" schema="ng">
+                <join table="ng_weatherdata" fromColumn="id" toColumn="cityobject_weatherdata_id" toRole="child"/>
+            </objectProperty>
+            <featureProperty target="ng_EnergyDemandType" relationType="association" path="demands" schema="ng">
+                <join table="ng_energydemand" fromColumn="id" toColumn="cityobject_demands_id" toRole="child"/>
+            </featureProperty>
+        </propertyInjection>
+    </propertyInjections>
+</schemaMapping>
