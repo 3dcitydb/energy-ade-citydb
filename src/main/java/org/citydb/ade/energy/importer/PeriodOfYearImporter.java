@@ -1,5 +1,8 @@
 package org.citydb.ade.energy.importer;
 
+import org.citydb.ade.energy.schema.ADESequence;
+import org.citydb.ade.energy.schema.ADETable;
+import org.citydb.ade.energy.schema.SchemaMapper;
 import org.citydb.ade.importer.ADEImporter;
 import org.citydb.ade.importer.CityGMLImportHelper;
 import org.citydb.citygml.importer.CityGMLImportException;
@@ -7,9 +10,6 @@ import org.citygml4j.ade.energy.model.supportingClasses.DailySchedule;
 import org.citygml4j.ade.energy.model.supportingClasses.DailyScheduleProperty;
 import org.citygml4j.ade.energy.model.supportingClasses.PeriodOfYear;
 import org.citygml4j.ade.energy.model.supportingClasses.TimePeriod;
-import org.citydb.ade.energy.schema.ADESequence;
-import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.energy.schema.SchemaMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

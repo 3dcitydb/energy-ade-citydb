@@ -1,5 +1,8 @@
 package org.citydb.ade.energy.exporter;
 
+import org.citydb.ade.energy.schema.ADETable;
+import org.citydb.ade.energy.schema.ObjectMapper;
+import org.citydb.ade.energy.schema.SchemaMapper;
 import org.citydb.ade.exporter.ADEExportManager;
 import org.citydb.ade.exporter.ADEExporter;
 import org.citydb.ade.exporter.CityGMLExportHelper;
@@ -12,9 +15,6 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.energy.schema.ObjectMapper;
-import org.citydb.ade.energy.schema.SchemaMapper;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -5,12 +5,15 @@ import org.citydb.ade.exporter.ADEExporter;
 import org.citydb.ade.exporter.CityGMLExportHelper;
 import org.citydb.citygml.exporter.CityGMLExportException;
 import org.citydb.database.schema.mapping.FeatureType;
+import org.citydb.database.schema.mapping.MappingConstants;
 import org.citydb.query.filter.projection.CombinedProjectionFilter;
 import org.citydb.query.filter.projection.ProjectionFilter;
 import org.citydb.sqlbuilder.expression.PlaceHolder;
 import org.citydb.sqlbuilder.schema.Table;
 import org.citydb.sqlbuilder.select.Select;
+import org.citydb.sqlbuilder.select.join.JoinFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonFactory;
+import org.citydb.sqlbuilder.select.operator.comparison.ComparisonName;
 import org.citygml4j.ade.energy.model.core.AbstractConstructionProperty;
 import org.citygml4j.ade.energy.model.materialAndConstruction.Construction;
 import org.citygml4j.ade.energy.model.materialAndConstruction.Layer;
@@ -43,8 +46,10 @@ public class ConstructionExporter implements ADEExporter {
         module = EnergyADEModule.v1_0.getNamespaceURI();
 
         Table table = new Table(helper.getTableNameWithSchema(tableName));
+        Table cityObject = new Table(helper.getTableNameWithSchema(MappingConstants.CITYOBJECT));
 
-        Select select = new Select().addProjection(table.getColumn("id"));
+        Select select = new Select().addProjection(table.getColumn("id"), cityObject.getColumn("gmlid"))
+                .addJoin(JoinFactory.inner(cityObject, "id", ComparisonName.EQUAL_TO, table.getColumn("id")));
         if (projectionFilter.containsProperty("uValue", module))
             select.addProjection(table.getColumn("uvalue"), table.getColumn("uvalue_uom"));
         if (projectionFilter.containsProperty("opticalProperties", module))
@@ -63,15 +68,17 @@ public class ConstructionExporter implements ADEExporter {
             Construction construction = null;
 
             if (rs.next()) {
+                String gmlId = rs.getString("gmlid");
+                if (gmlId != null && helper.lookupAndPutObjectUID(gmlId, objectId, objectClassId))
+                    return new AbstractConstructionProperty("#" + gmlId);
+
                 construction = helper.createObject(objectId, objectClassId, Construction.class);
                 if (construction == null) {
                     helper.logOrThrowErrorMessage("Failed to instantiate " + helper.getObjectSignature(objectClassId, objectId) + " as construction object.");
                     return null;
                 }
 
-                if (construction.isSetId() && helper.lookupAndPutObjectUID(construction.getId(), objectId, objectClassId))
-                    return new AbstractConstructionProperty("#" + construction.getId());
-
+                construction.setId(gmlId);
                 FeatureType featureType = helper.getFeatureType(objectClassId);
                 ProjectionFilter projectionFilter = helper.getProjectionFilter(featureType);
 

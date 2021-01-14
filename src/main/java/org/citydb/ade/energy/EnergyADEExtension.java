@@ -1,10 +1,11 @@
 package org.citydb.ade.energy;
 
-import org.citydb.ImpExp;
+import org.citydb.ImpExpLauncher;
 import org.citydb.ade.ADEExtension;
 import org.citydb.ade.ADEExtensionException;
 import org.citydb.ade.ADEObjectMapper;
 import org.citydb.ade.energy.exporter.ExportManager;
+import org.citydb.ade.energy.importer.ImportManager;
 import org.citydb.ade.energy.schema.ObjectMapper;
 import org.citydb.ade.energy.schema.SchemaMapper;
 import org.citydb.ade.exporter.ADEExportManager;
@@ -12,7 +13,6 @@ import org.citydb.ade.importer.ADEImportManager;
 import org.citydb.database.schema.mapping.SchemaMapping;
 import org.citygml4j.ade.energy.EnergyADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
-import org.citydb.ade.energy.importer.ImportManager;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -26,7 +26,9 @@ public class EnergyADEExtension extends ADEExtension {
     public static void main(String[] args) {
         EnergyADEExtension adeExtension = new EnergyADEExtension();
         adeExtension.setBasePath(Paths.get("resources/database").toAbsolutePath());
-        new ImpExp().doMain(args, adeExtension);
+        new ImpExpLauncher().withArgs(args)
+                .withADEExtension(adeExtension)
+                .start();
     }
 
     @Override

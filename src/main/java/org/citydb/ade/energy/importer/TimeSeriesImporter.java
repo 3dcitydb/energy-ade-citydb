@@ -1,5 +1,6 @@
 package org.citydb.ade.energy.importer;
 
+import org.citydb.ade.energy.schema.ADETable;
 import org.citydb.ade.importer.ADEImporter;
 import org.citydb.ade.importer.CityGMLImportHelper;
 import org.citydb.ade.importer.ForeignKeys;
@@ -13,7 +14,6 @@ import org.citygml4j.ade.energy.model.supportingClasses.TimeIntervalLength;
 import org.citygml4j.ade.energy.model.supportingClasses.TimePeriod;
 import org.citygml4j.ade.energy.model.supportingClasses.TimePeriodProperty;
 import org.citygml4j.ade.energy.model.supportingClasses.TimeValuesProperties;
-import org.citydb.ade.energy.schema.ADETable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

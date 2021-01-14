@@ -1,9 +1,10 @@
 package org.citydb.ade.energy.exporter;
 
+import org.citydb.ade.energy.schema.ADETable;
 import org.citydb.ade.exporter.ADEExporter;
 import org.citydb.ade.exporter.CityGMLExportHelper;
 import org.citydb.citygml.exporter.CityGMLExportException;
-import org.citydb.citygml.exporter.database.content.SurfaceGeometry;
+import org.citydb.citygml.exporter.database.content.SurfaceGeometryExporter;
 import org.citydb.database.schema.mapping.FeatureType;
 import org.citydb.database.schema.mapping.MappingConstants;
 import org.citydb.query.filter.projection.CombinedProjectionFilter;
@@ -22,13 +23,9 @@ import org.citygml4j.ade.energy.model.buildingPhysics.ThermalZoneProperty;
 import org.citygml4j.ade.energy.model.core.AbstractConstruction;
 import org.citygml4j.ade.energy.model.core.AbstractConstructionProperty;
 import org.citygml4j.ade.energy.model.module.EnergyADEModule;
-import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.measures.Angle;
 import org.citygml4j.model.gml.measures.Area;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
-import org.citydb.ade.energy.schema.ADETable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,6 +44,7 @@ public class ThermalBoundaryExporter implements ADEExporter {
 
     private PreparedStatement ps;
     private ConstructionExporter constructionExporter;
+    private SurfaceGeometryExporter surfaceGeometryExporter;
     private String module;
 
     public ThermalBoundaryExporter(Connection connection, CityGMLExportHelper helper, ExportManager manager) throws CityGMLExportException, SQLException {
@@ -85,6 +83,7 @@ public class ThermalBoundaryExporter implements ADEExporter {
         ps = connection.prepareStatement(select.toString());
 
         constructionExporter = manager.getExporter(ConstructionExporter.class);
+        surfaceGeometryExporter = helper.getSurfaceGeometryExporter();
     }
 
     public Collection<ThermalBoundary> doExport(long parentId) throws CityGMLExportException, SQLException {
@@ -140,18 +139,8 @@ public class ThermalBoundaryExporter implements ADEExporter {
                         }
 
                         long surfaceGeometryId = rs.getLong("surfacegeometry_id");
-                        if (!rs.wasNull()) {
-                            SurfaceGeometry geometry = helper.exportSurfaceGeometry(surfaceGeometryId);
-                            if (geometry != null && geometry.getType() == GMLClass.MULTI_SURFACE) {
-                                MultiSurfaceProperty multiSurfaceProperty = new MultiSurfaceProperty();
-                                if (geometry.isSetGeometry())
-                                    multiSurfaceProperty.setMultiSurface((MultiSurface) geometry.getGeometry());
-                                else
-                                    multiSurfaceProperty.setHref(geometry.getReference());
-
-                                thermalBoundary.setSurfaceGeometry(multiSurfaceProperty);
-                            }
-                        }
+                        if (!rs.wasNull())
+                            surfaceGeometryExporter.addBatch(surfaceGeometryId, thermalBoundary::setSurfaceGeometry);
 
                         if (boundaryProjectionFilter.containsProperty("azimuth", module)) {
                             double azimuth = rs.getDouble("azimuth");
@@ -221,18 +210,8 @@ public class ThermalBoundaryExporter implements ADEExporter {
                         }
 
                         long surfaceGeometryId = rs.getLong("op_surfacegeometry_id");
-                        if (!rs.wasNull()) {
-                            SurfaceGeometry geometry = helper.exportSurfaceGeometry(surfaceGeometryId);
-                            if (geometry != null && geometry.getType() == GMLClass.MULTI_SURFACE) {
-                                MultiSurfaceProperty multiSurfaceProperty = new MultiSurfaceProperty();
-                                if (geometry.isSetGeometry())
-                                    multiSurfaceProperty.setMultiSurface((MultiSurface) geometry.getGeometry());
-                                else
-                                    multiSurfaceProperty.setHref(geometry.getReference());
-
-                                thermalOpening.setSurfaceGeometry(multiSurfaceProperty);
-                            }
-                        }
+                        if (!rs.wasNull())
+                            surfaceGeometryExporter.addBatch(surfaceGeometryId, thermalOpening::setSurfaceGeometry);
 
                         if (openingProjectionFilter.containsProperty("area", module)) {
                             double value = rs.getDouble("op_area");

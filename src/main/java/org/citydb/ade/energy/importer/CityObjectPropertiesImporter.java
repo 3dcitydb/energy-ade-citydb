@@ -1,5 +1,7 @@
 package org.citydb.ade.energy.importer;
 
+import org.citydb.ade.energy.schema.ADETable;
+import org.citydb.ade.energy.schema.SchemaMapper;
 import org.citydb.ade.importer.ADEImporter;
 import org.citydb.ade.importer.ADEPropertyCollection;
 import org.citydb.ade.importer.CityGMLImportHelper;
@@ -11,8 +13,6 @@ import org.citygml4j.ade.energy.model.core.EnergyDemand;
 import org.citygml4j.ade.energy.model.core.WeatherData;
 import org.citygml4j.ade.energy.model.core.WeatherDataPropertyElement;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.energy.schema.SchemaMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

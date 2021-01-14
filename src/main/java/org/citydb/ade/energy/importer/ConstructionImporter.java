@@ -1,5 +1,6 @@
 package org.citydb.ade.energy.importer;
 
+import org.citydb.ade.energy.schema.ADETable;
 import org.citydb.ade.importer.ADEImporter;
 import org.citydb.ade.importer.CityGMLImportHelper;
 import org.citydb.ade.importer.ForeignKeys;
@@ -9,7 +10,6 @@ import org.citygml4j.ade.energy.model.materialAndConstruction.Construction;
 import org.citygml4j.ade.energy.model.materialAndConstruction.Layer;
 import org.citygml4j.ade.energy.model.materialAndConstruction.LayerProperty;
 import org.citygml4j.ade.energy.model.materialAndConstruction.OpticalPropertiesProperty;
-import org.citydb.ade.energy.schema.ADETable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

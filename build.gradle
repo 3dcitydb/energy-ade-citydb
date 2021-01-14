@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'org.citydb.ade'
-version '1.2.0'
+version '1.3.0-SNAPSHOT'
 description 'Energy ADE extension for the 3DCityDB'
 
 java {
@@ -26,10 +26,10 @@ repositories {
 }
 
 dependencies {
-    api 'org.citydb:impexp-client:4.2.3'
-    api('org.citygml4j.ade:energy-ade-citygml4j:1.0.0')
+    api 'org.citydb:impexp-client:4.3.0-b20210114.1701'
+    api 'org.citygml4j.ade:energy-ade-citygml4j:1.0.1'
     
-    citygml4j('org.citygml4j.ade:energy-ade-citygml4j:1.0.0') {
+    citygml4j('org.citygml4j.ade:energy-ade-citygml4j:1.0.1') {
         transitive = false
     }
 }
@@ -47,7 +47,7 @@ jar {
 
 distributions.main {
     distributionBaseName = 'energy-ade'
-    
+
     contents {
         from 'README.md'
         into('lib') {

@@ -1,5 +1,7 @@
 package org.citydb.ade.energy.importer;
 
+import org.citydb.ade.energy.schema.ADETable;
+import org.citydb.ade.energy.schema.SchemaMapper;
 import org.citydb.ade.importer.ADEImporter;
 import org.citydb.ade.importer.CityGMLImportHelper;
 import org.citydb.ade.importer.ForeignKeys;
@@ -9,8 +11,6 @@ import org.citygml4j.ade.energy.model.core.EnergyDemand;
 import org.citygml4j.ade.energy.model.supportingClasses.AbstractTimeSeries;
 import org.citygml4j.ade.energy.model.supportingClasses.AbstractTimeSeriesProperty;
 import org.citygml4j.model.gml.base.Reference;
-import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.energy.schema.SchemaMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,9 +1,10 @@
 package org.citydb.ade.energy.exporter;
 
+import org.citydb.ade.energy.schema.ADETable;
 import org.citydb.ade.exporter.ADEExporter;
 import org.citydb.ade.exporter.CityGMLExportHelper;
 import org.citydb.citygml.exporter.CityGMLExportException;
-import org.citydb.citygml.exporter.database.content.SurfaceGeometry;
+import org.citydb.citygml.exporter.database.content.SurfaceGeometryExporter;
 import org.citydb.database.schema.mapping.FeatureType;
 import org.citydb.database.schema.mapping.MappingConstants;
 import org.citydb.query.filter.projection.CombinedProjectionFilter;
@@ -24,12 +25,8 @@ import org.citygml4j.ade.energy.model.core.FloorAreaTypeValue;
 import org.citygml4j.ade.energy.model.core.VolumeType;
 import org.citygml4j.ade.energy.model.core.VolumeTypeProperty;
 import org.citygml4j.ade.energy.model.module.EnergyADEModule;
-import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
-import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.measures.Area;
-import org.citydb.ade.energy.schema.ADETable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,6 +45,7 @@ public class ThermalZoneExporter implements ADEExporter {
     private PreparedStatement ps;
     private VolumeTypeExporter volumeTypeExporter;
     private ThermalBoundaryExporter thermalBoundaryExporter;
+    private SurfaceGeometryExporter surfaceGeometryExporter;
     private String module;
 
     public ThermalZoneExporter(Connection connection, CityGMLExportHelper helper, ExportManager manager) throws CityGMLExportException, SQLException {
@@ -80,6 +78,7 @@ public class ThermalZoneExporter implements ADEExporter {
 
         volumeTypeExporter = manager.getExporter(VolumeTypeExporter.class);
         thermalBoundaryExporter = manager.getExporter(ThermalBoundaryExporter.class);
+        surfaceGeometryExporter = helper.getSurfaceGeometryExporter();
     }
 
     public Collection<ThermalZone> doExport(long parentId) throws CityGMLExportException, SQLException {
@@ -132,18 +131,8 @@ public class ThermalZoneExporter implements ADEExporter {
 
                         if (projectionFilter.containsProperty("volumeGeometry", module)) {
                             long volumeGeometryId = rs.getLong("volumegeometry_id");
-                            if (!rs.wasNull()) {
-                                SurfaceGeometry geometry = helper.exportSurfaceGeometry(volumeGeometryId);
-                                if (geometry != null && (geometry.getType() == GMLClass.SOLID || geometry.getType() == GMLClass.COMPOSITE_SOLID)) {
-                                    SolidProperty solidProperty = new SolidProperty();
-                                    if (geometry.isSetGeometry())
-                                        solidProperty.setSolid((AbstractSolid) geometry.getGeometry());
-                                    else
-                                        solidProperty.setHref(geometry.getReference());
-
-                                    thermalZone.setVolumeGeometry(solidProperty);
-                                }
-                            }
+                            if (!rs.wasNull())
+                                surfaceGeometryExporter.addBatch(volumeGeometryId, thermalZone::setVolumeGeometry);
                         }
 
                         thermalZone.setLocalProperty("projection", projectionFilter);

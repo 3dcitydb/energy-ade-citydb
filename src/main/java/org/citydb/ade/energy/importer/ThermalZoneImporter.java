@@ -1,5 +1,7 @@
 package org.citydb.ade.energy.importer;
 
+import org.citydb.ade.energy.schema.ADETable;
+import org.citydb.ade.energy.schema.SchemaMapper;
 import org.citydb.ade.importer.ADEImporter;
 import org.citydb.ade.importer.CityGMLImportHelper;
 import org.citydb.ade.importer.ForeignKeys;
@@ -15,8 +17,6 @@ import org.citygml4j.ade.energy.model.core.FloorAreaProperty;
 import org.citygml4j.ade.energy.model.core.VolumeType;
 import org.citygml4j.ade.energy.model.core.VolumeTypeProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.energy.schema.SchemaMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

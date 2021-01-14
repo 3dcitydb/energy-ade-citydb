@@ -5,6 +5,7 @@ import org.citydb.ade.exporter.ADEExporter;
 import org.citydb.ade.exporter.CityGMLExportHelper;
 import org.citydb.citygml.exporter.CityGMLExportException;
 import org.citydb.database.schema.mapping.FeatureType;
+import org.citydb.database.schema.mapping.MappingConstants;
 import org.citydb.query.filter.projection.CombinedProjectionFilter;
 import org.citydb.query.filter.projection.ProjectionFilter;
 import org.citydb.sqlbuilder.expression.PlaceHolder;
@@ -61,10 +62,12 @@ public class LayerExporter implements ADEExporter {
         Table material = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.MATERIAL)));
         Table gas = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.GAS)));
         Table solidMaterial = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.SOLIDMATERIAL)));
+        Table cityObject = new Table(helper.getTableNameWithSchema(MappingConstants.CITYOBJECT));
 
-        Select select = new Select().addProjection(table.getColumn("id"), component.getColumn("id", "c_id"),
-                component.getColumn("thickness"), component.getColumn("thickness_uom"), material.getColumn("id", "m_id"),
-                material.getColumn("objectclass_id"), gas.getColumn("rvalue"), gas.getColumn("rvalue_uom"),
+        Select select = new Select().addProjection(table.getColumn("id"), component.getColumn("id", "cid"),
+                component.getColumn("thickness"), component.getColumn("thickness_uom"),
+                material.getColumn("id", "mid"), material.getColumn("objectclass_id"), cityObject.getColumn("gmlid"),
+                gas.getColumn("rvalue"), gas.getColumn("rvalue_uom"),
                 solidMaterial.getColumn("conductivity"), solidMaterial.getColumn("conductivity_uom"),
                 solidMaterial.getColumn("density"), solidMaterial.getColumn("density_uom"),
                 solidMaterial.getColumn("specificheat"), solidMaterial.getColumn("specificheat_uom"))
@@ -72,6 +75,7 @@ public class LayerExporter implements ADEExporter {
                 .addJoin(JoinFactory.left(material, "id", ComparisonName.EQUAL_TO, component.getColumn("material_id")))
                 .addJoin(JoinFactory.left(gas, "id", ComparisonName.EQUAL_TO, material.getColumn("id")))
                 .addJoin(JoinFactory.left(solidMaterial, "id", ComparisonName.EQUAL_TO, material.getColumn("id")))
+                .addJoin(JoinFactory.left(cityObject, "id", ComparisonName.EQUAL_TO, material.getColumn("id")))
                 .addOrderBy(new OrderByToken(table.getColumn("id")));
         if (componentProjectionFilter.containsProperty("areaFraction", module))
             select.addProjection(component.getColumn("areafraction"), component.getColumn("areafraction_uom"));
@@ -110,7 +114,7 @@ public class LayerExporter implements ADEExporter {
                     }
                 }
 
-                long componentId = rs.getLong("c_id");
+                long componentId = rs.getLong("cid");
                 if (!rs.wasNull() && componentIds.computeIfAbsent(layerId, v -> new HashSet<>()).add(componentId)) {
                     LayerComponent component = helper.createObject(componentId, componentObjectClassId, LayerComponent.class);
                     if (component == null) {
@@ -137,18 +141,19 @@ public class LayerExporter implements ADEExporter {
                         }
                     }
 
-                    long materialId = rs.getLong("m_id");
+                    long materialId = rs.getLong("mid");
                     if (!rs.wasNull()) {
-                        int materialObjectClassId = rs.getInt("objectclass_id");
-                        AbstractMaterial material = helper.createObject(materialId, materialObjectClassId, AbstractMaterial.class);
-                        if (material == null) {
-                            helper.logOrThrowErrorMessage("Failed to instantiate " + helper.getObjectSignature(materialObjectClassId, materialId) + " as material object.");
-                            continue;
-                        }
-
                         AbstractMaterialProperty property = new AbstractMaterialProperty();
-                        String gmlId = material.getId();
+                        int materialObjectClassId = rs.getInt("objectclass_id");
+                        String gmlId = rs.getString("gmlid");
+
                         if (gmlId == null || !helper.lookupAndPutObjectUID(gmlId, materialId, materialObjectClassId)) {
+                            AbstractMaterial material = helper.createObject(materialId, materialObjectClassId, AbstractMaterial.class);
+                            if (material == null) {
+                                helper.logOrThrowErrorMessage("Failed to instantiate " + helper.getObjectSignature(materialObjectClassId, materialId) + " as material object.");
+                                continue;
+                            }
+
                             featureType = helper.getFeatureType(objectClassId);
                             ProjectionFilter materialProjectionFilter = helper.getProjectionFilter(featureType);
 
