@@ -43,7 +43,7 @@ If you have correctly unzipped the Energy ADE extension package inside the `ade-
 automatically detect the extension and will be able to handle Energy ADE datasets. Again, the main steps for using an
 ADE extension with the Importer/Exporter are described in the 3DCityDB online documentation:
 
-* **[How to the Energy ADE extension with the Importer/Exporter](https://3dcitydb-docs.readthedocs.io/en/latest/impexp/plugins/ade-manager.html#workflow-of-extending-the-import-export-tool)**
+* **[How to use the Energy ADE extension with the Importer/Exporter](https://3dcitydb-docs.readthedocs.io/en/latest/impexp/plugins/ade-manager.html#workflow-of-extending-the-import-export-tool)**
 
 Simple datasets for testing the Energy ADE extension can be found in the [resources/datasets](https://github.com/3dcitydb/energy-ade-citydb/tree/main/resources/datasets)
 folder of this repository.
