@@ -147,7 +147,7 @@ public class LayerExporter implements ADEExporter {
                         int materialObjectClassId = rs.getInt("objectclass_id");
                         String gmlId = rs.getString("gmlid");
 
-                        if (gmlId == null || !helper.lookupAndPutObjectUID(gmlId, materialId, materialObjectClassId)) {
+                        if (gmlId == null || !helper.lookupAndPutObjectId(gmlId, materialId, materialObjectClassId)) {
                             AbstractMaterial material = helper.createObject(materialId, materialObjectClassId, AbstractMaterial.class);
                             if (material == null) {
                                 helper.logOrThrowErrorMessage("Failed to instantiate " + helper.getObjectSignature(materialObjectClassId, materialId) + " as material object.");

@@ -69,7 +69,7 @@ public class ConstructionExporter implements ADEExporter {
 
             if (rs.next()) {
                 String gmlId = rs.getString("gmlid");
-                if (gmlId != null && helper.lookupAndPutObjectUID(gmlId, objectId, objectClassId))
+                if (gmlId != null && helper.lookupAndPutObjectId(gmlId, objectId, objectClassId))
                     return new AbstractConstructionProperty("#" + gmlId);
 
                 construction = helper.createObject(objectId, objectClassId, Construction.class);
