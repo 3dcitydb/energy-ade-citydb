@@ -17,19 +17,19 @@ configurations {
 
 repositories {
     maven {
-        url 'https://dl.bintray.com/3dcitydb/maven'
+        url 'https://citydb.jfrog.io/artifactory/maven'
     }
     maven {
         url 'https://repo.osgeo.org/repository/release'
     }
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    api 'org.citydb:impexp-client:4.3.0-b20210114.1701'
-    api 'org.citygml4j.ade:energy-ade-citygml4j:1.0.1'
+    api 'org.citydb:impexp-client:4.3.0-rc5'
+    api 'org.citygml4j.ade:energy-ade-citygml4j:1.0.2'
     
-    citygml4j('org.citygml4j.ade:energy-ade-citygml4j:1.0.1') {
+    citygml4j('org.citygml4j.ade:energy-ade-citygml4j:1.0.2') {
         transitive = false
     }
 }
