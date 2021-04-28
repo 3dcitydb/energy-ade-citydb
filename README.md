@@ -79,7 +79,7 @@ and the [Institute for Automation and Applied Informatics (IAI) at Karlsruhe Ins
 
 The Energy ADE is an Application Domain Extension for [OGC CityGML 2.0](http://www.opengeospatial.org/standards/citygml).
 
-# Publications
+## Publications
 - [Agugiaro, G. et al.: The Energy Application Domain Extension for CityGML: enhancing interoperability for urban energy
   simulations, Open Geospatial Data, Software and Standards (2018) 3:2](https://doi.org/10.1186/s40965-018-0042-y)
 - [Benner, J. et al.: Virtual 3D City Model Support for Energy Demand Simulations on City Level - The CityGML Energy
