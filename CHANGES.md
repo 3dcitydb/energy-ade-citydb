@@ -11,5 +11,5 @@ Change Log
 * Fixed import of properties inherited from `AbstractFeature` for the `LayerComponent` feature. [#4](https://github.com/3dcitydb/energy-ade-citydb/issues/4)
 
 ##### Changes
-* Updated to impexp-client 4.3.0
+* Updated impexp-client to 4.3.0
 * Updated energy-ade-citygml4j to 1.0.3.
