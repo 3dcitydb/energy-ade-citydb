@@ -30,12 +30,12 @@ package org.citydb.ade.energy.importer;
 
 import org.citydb.ade.energy.schema.ADETable;
 import org.citydb.ade.energy.schema.SchemaMapper;
-import org.citydb.ade.importer.ADEImporter;
-import org.citydb.ade.importer.ADEPropertyCollection;
-import org.citydb.ade.importer.CityGMLImportHelper;
-import org.citydb.ade.importer.ForeignKeys;
-import org.citydb.citygml.importer.CityGMLImportException;
-import org.citydb.database.schema.mapping.FeatureType;
+import org.citydb.core.ade.importer.ADEImporter;
+import org.citydb.core.ade.importer.ADEPropertyCollection;
+import org.citydb.core.ade.importer.CityGMLImportHelper;
+import org.citydb.core.ade.importer.ForeignKeys;
+import org.citydb.core.database.schema.mapping.FeatureType;
+import org.citydb.core.operation.importer.CityGMLImportException;
 import org.citygml4j.ade.energy.model.core.DemandsProperty;
 import org.citygml4j.ade.energy.model.core.EnergyDemand;
 import org.citygml4j.ade.energy.model.core.WeatherData;

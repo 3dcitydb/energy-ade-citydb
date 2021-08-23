@@ -29,29 +29,18 @@
 package org.citydb.ade.energy.exporter;
 
 import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.exporter.ADEExporter;
-import org.citydb.ade.exporter.CityGMLExportHelper;
-import org.citydb.citygml.exporter.CityGMLExportException;
+import org.citydb.core.ade.exporter.ADEExporter;
+import org.citydb.core.ade.exporter.CityGMLExportHelper;
+import org.citydb.core.operation.exporter.CityGMLExportException;
 import org.citydb.sqlbuilder.expression.PlaceHolder;
 import org.citydb.sqlbuilder.schema.Table;
 import org.citydb.sqlbuilder.select.Select;
 import org.citydb.sqlbuilder.select.join.JoinFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonName;
-import org.citygml4j.ade.energy.model.supportingClasses.AbstractTimeSeries;
-import org.citygml4j.ade.energy.model.supportingClasses.AbstractTimeSeriesProperty;
-import org.citygml4j.ade.energy.model.supportingClasses.DailySchedule;
-import org.citygml4j.ade.energy.model.supportingClasses.DailyScheduleProperty;
-import org.citygml4j.ade.energy.model.supportingClasses.DayTypeValue;
-import org.citygml4j.ade.energy.model.supportingClasses.PeriodOfYear;
-import org.citygml4j.ade.energy.model.supportingClasses.TimePeriod;
-import org.citygml4j.ade.energy.model.supportingClasses.TimePeriodProperty;
+import org.citygml4j.ade.energy.model.supportingClasses.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Collection;

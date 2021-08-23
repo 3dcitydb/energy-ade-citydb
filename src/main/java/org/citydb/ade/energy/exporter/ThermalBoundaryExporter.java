@@ -29,25 +29,21 @@
 package org.citydb.ade.energy.exporter;
 
 import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.exporter.ADEExporter;
-import org.citydb.ade.exporter.CityGMLExportHelper;
-import org.citydb.citygml.exporter.CityGMLExportException;
-import org.citydb.citygml.exporter.database.content.SurfaceGeometryExporter;
-import org.citydb.database.schema.mapping.FeatureType;
-import org.citydb.database.schema.mapping.MappingConstants;
-import org.citydb.query.filter.projection.CombinedProjectionFilter;
-import org.citydb.query.filter.projection.ProjectionFilter;
+import org.citydb.core.ade.exporter.ADEExporter;
+import org.citydb.core.ade.exporter.CityGMLExportHelper;
+import org.citydb.core.database.schema.mapping.FeatureType;
+import org.citydb.core.database.schema.mapping.MappingConstants;
+import org.citydb.core.operation.exporter.CityGMLExportException;
+import org.citydb.core.operation.exporter.database.content.SurfaceGeometryExporter;
+import org.citydb.core.query.filter.projection.CombinedProjectionFilter;
+import org.citydb.core.query.filter.projection.ProjectionFilter;
 import org.citydb.sqlbuilder.expression.PlaceHolder;
 import org.citydb.sqlbuilder.schema.Table;
 import org.citydb.sqlbuilder.select.Select;
 import org.citydb.sqlbuilder.select.join.JoinFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonName;
-import org.citygml4j.ade.energy.model.buildingPhysics.ThermalBoundary;
-import org.citygml4j.ade.energy.model.buildingPhysics.ThermalBoundaryTypeValue;
-import org.citygml4j.ade.energy.model.buildingPhysics.ThermalOpening;
-import org.citygml4j.ade.energy.model.buildingPhysics.ThermalOpeningProperty;
-import org.citygml4j.ade.energy.model.buildingPhysics.ThermalZoneProperty;
+import org.citygml4j.ade.energy.model.buildingPhysics.*;
 import org.citygml4j.ade.energy.model.core.AbstractConstruction;
 import org.citygml4j.ade.energy.model.core.AbstractConstructionProperty;
 import org.citygml4j.ade.energy.model.module.EnergyADEModule;
@@ -59,11 +55,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ThermalBoundaryExporter implements ADEExporter {
     private final CityGMLExportHelper helper;

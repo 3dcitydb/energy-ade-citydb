@@ -22,14 +22,11 @@ repositories {
     maven {
         url 'https://repo.osgeo.org/repository/release'
     }
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
-    }
     mavenCentral()
 }
 
 dependencies {
-    api 'org.citydb:impexp-client:4.3.0'
+    api 'org.citydb:impexp-client-gui:4.4.0-SNAPSHOT'
     api 'org.citygml4j.ade:energy-ade-citygml4j:1.0.3'
     
     citygml4j('org.citygml4j.ade:energy-ade-citygml4j:1.0.3') {

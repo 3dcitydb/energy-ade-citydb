@@ -28,36 +28,17 @@
 
 package org.citydb.ade.energy.schema;
 
-import org.citydb.ade.ADEExtensionException;
-import org.citydb.ade.ADEObjectMapper;
-import org.citydb.database.schema.mapping.AbstractObjectType;
-import org.citydb.database.schema.mapping.SchemaMapping;
+import org.citydb.core.ade.ADEExtensionException;
+import org.citydb.core.ade.ADEObjectMapper;
+import org.citydb.core.database.schema.mapping.AbstractObjectType;
+import org.citydb.core.database.schema.mapping.SchemaMapping;
 import org.citygml4j.ade.energy.model.buildingPhysics.ThermalBoundary;
 import org.citygml4j.ade.energy.model.buildingPhysics.ThermalOpening;
 import org.citygml4j.ade.energy.model.buildingPhysics.ThermalZone;
-import org.citygml4j.ade.energy.model.core.AbstractConstruction;
-import org.citygml4j.ade.energy.model.core.AbstractThermalZone;
-import org.citygml4j.ade.energy.model.core.AbstractUsageZone;
-import org.citygml4j.ade.energy.model.core.EnergyDemand;
-import org.citygml4j.ade.energy.model.core.WeatherData;
-import org.citygml4j.ade.energy.model.materialAndConstruction.AbstractMaterial;
-import org.citygml4j.ade.energy.model.materialAndConstruction.Construction;
-import org.citygml4j.ade.energy.model.materialAndConstruction.Gas;
-import org.citygml4j.ade.energy.model.materialAndConstruction.Layer;
-import org.citygml4j.ade.energy.model.materialAndConstruction.LayerComponent;
-import org.citygml4j.ade.energy.model.materialAndConstruction.SolidMaterial;
-import org.citygml4j.ade.energy.model.occupantBehaviour.DHWFacilities;
-import org.citygml4j.ade.energy.model.occupantBehaviour.ElectricalAppliances;
-import org.citygml4j.ade.energy.model.occupantBehaviour.Facilities;
-import org.citygml4j.ade.energy.model.occupantBehaviour.LightingFacilities;
-import org.citygml4j.ade.energy.model.occupantBehaviour.Occupants;
-import org.citygml4j.ade.energy.model.occupantBehaviour.UsageZone;
-import org.citygml4j.ade.energy.model.supportingClasses.AbstractSchedule;
-import org.citygml4j.ade.energy.model.supportingClasses.AbstractTimeSeries;
-import org.citygml4j.ade.energy.model.supportingClasses.DailyPatternSchedule;
-import org.citygml4j.ade.energy.model.supportingClasses.RegularTimeSeries;
-import org.citygml4j.ade.energy.model.supportingClasses.RegularTimeSeriesFile;
-import org.citygml4j.ade.energy.model.supportingClasses.WeatherStation;
+import org.citygml4j.ade.energy.model.core.*;
+import org.citygml4j.ade.energy.model.materialAndConstruction.*;
+import org.citygml4j.ade.energy.model.occupantBehaviour.*;
+import org.citygml4j.ade.energy.model.supportingClasses.*;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 

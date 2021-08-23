@@ -29,22 +29,17 @@
 package org.citydb.ade.energy.exporter;
 
 import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.exporter.ADEExporter;
-import org.citydb.ade.exporter.CityGMLExportHelper;
-import org.citydb.citygml.exporter.CityGMLExportException;
-import org.citydb.database.schema.mapping.FeatureType;
-import org.citydb.query.filter.projection.CombinedProjectionFilter;
-import org.citydb.query.filter.projection.ProjectionFilter;
+import org.citydb.core.ade.exporter.ADEExporter;
+import org.citydb.core.ade.exporter.CityGMLExportHelper;
+import org.citydb.core.database.schema.mapping.FeatureType;
+import org.citydb.core.operation.exporter.CityGMLExportException;
+import org.citydb.core.query.filter.projection.CombinedProjectionFilter;
+import org.citydb.core.query.filter.projection.ProjectionFilter;
 import org.citydb.sqlbuilder.expression.PlaceHolder;
 import org.citydb.sqlbuilder.schema.Table;
 import org.citydb.sqlbuilder.select.Select;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonFactory;
-import org.citygml4j.ade.energy.model.core.DemandsProperty;
-import org.citygml4j.ade.energy.model.core.EnergyDemand;
-import org.citygml4j.ade.energy.model.core.EnergyDemandProperty;
-import org.citygml4j.ade.energy.model.core.WeatherData;
-import org.citygml4j.ade.energy.model.core.WeatherDataProperty;
-import org.citygml4j.ade.energy.model.core.WeatherDataPropertyElement;
+import org.citygml4j.ade.energy.model.core.*;
 import org.citygml4j.ade.energy.model.module.EnergyADEModule;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 

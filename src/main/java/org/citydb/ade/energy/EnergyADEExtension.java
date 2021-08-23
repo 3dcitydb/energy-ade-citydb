@@ -28,17 +28,17 @@
 
 package org.citydb.ade.energy;
 
-import org.citydb.ImpExpLauncher;
-import org.citydb.ade.ADEExtension;
-import org.citydb.ade.ADEExtensionException;
-import org.citydb.ade.ADEObjectMapper;
 import org.citydb.ade.energy.exporter.ExportManager;
 import org.citydb.ade.energy.importer.ImportManager;
 import org.citydb.ade.energy.schema.ObjectMapper;
 import org.citydb.ade.energy.schema.SchemaMapper;
-import org.citydb.ade.exporter.ADEExportManager;
-import org.citydb.ade.importer.ADEImportManager;
-import org.citydb.database.schema.mapping.SchemaMapping;
+import org.citydb.core.ade.ADEExtension;
+import org.citydb.core.ade.ADEExtensionException;
+import org.citydb.core.ade.ADEObjectMapper;
+import org.citydb.core.ade.exporter.ADEExportManager;
+import org.citydb.core.ade.importer.ADEImportManager;
+import org.citydb.core.database.schema.mapping.SchemaMapping;
+import org.citydb.gui.ImpExpLauncher;
 import org.citygml4j.ade.energy.EnergyADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 

@@ -29,13 +29,13 @@
 package org.citydb.ade.energy.exporter;
 
 import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.exporter.ADEExporter;
-import org.citydb.ade.exporter.CityGMLExportHelper;
-import org.citydb.citygml.exporter.CityGMLExportException;
-import org.citydb.database.schema.mapping.FeatureType;
-import org.citydb.database.schema.mapping.MappingConstants;
-import org.citydb.query.filter.projection.CombinedProjectionFilter;
-import org.citydb.query.filter.projection.ProjectionFilter;
+import org.citydb.core.ade.exporter.ADEExporter;
+import org.citydb.core.ade.exporter.CityGMLExportHelper;
+import org.citydb.core.database.schema.mapping.FeatureType;
+import org.citydb.core.database.schema.mapping.MappingConstants;
+import org.citydb.core.operation.exporter.CityGMLExportException;
+import org.citydb.core.query.filter.projection.CombinedProjectionFilter;
+import org.citydb.core.query.filter.projection.ProjectionFilter;
 import org.citydb.sqlbuilder.expression.PlaceHolder;
 import org.citydb.sqlbuilder.schema.Table;
 import org.citydb.sqlbuilder.select.OrderByToken;
@@ -43,13 +43,7 @@ import org.citydb.sqlbuilder.select.Select;
 import org.citydb.sqlbuilder.select.join.JoinFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonFactory;
 import org.citydb.sqlbuilder.select.operator.comparison.ComparisonName;
-import org.citygml4j.ade.energy.model.materialAndConstruction.AbstractMaterial;
-import org.citygml4j.ade.energy.model.materialAndConstruction.AbstractMaterialProperty;
-import org.citygml4j.ade.energy.model.materialAndConstruction.Gas;
-import org.citygml4j.ade.energy.model.materialAndConstruction.Layer;
-import org.citygml4j.ade.energy.model.materialAndConstruction.LayerComponent;
-import org.citygml4j.ade.energy.model.materialAndConstruction.LayerComponentProperty;
-import org.citygml4j.ade.energy.model.materialAndConstruction.SolidMaterial;
+import org.citygml4j.ade.energy.model.materialAndConstruction.*;
 import org.citygml4j.ade.energy.model.module.EnergyADEModule;
 import org.citygml4j.model.gml.basicTypes.Measure;
 import org.citygml4j.model.gml.measures.Length;
@@ -60,11 +54,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LayerExporter implements ADEExporter {
     private final CityGMLExportHelper helper;

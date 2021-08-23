@@ -28,9 +28,9 @@
 
 package org.citydb.ade.energy.exporter;
 
-import org.citydb.ade.exporter.ADEExporter;
-import org.citydb.ade.exporter.CityGMLExportHelper;
-import org.citydb.citygml.exporter.CityGMLExportException;
+import org.citydb.core.ade.exporter.ADEExporter;
+import org.citydb.core.ade.exporter.CityGMLExportHelper;
+import org.citydb.core.operation.exporter.CityGMLExportException;
 import org.citygml4j.ade.energy.model.supportingClasses.DailyPatternSchedule;
 import org.citygml4j.ade.energy.model.supportingClasses.PeriodOfYear;
 import org.citygml4j.ade.energy.model.supportingClasses.PeriodOfYearProperty;

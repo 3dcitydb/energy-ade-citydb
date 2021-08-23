@@ -29,25 +29,15 @@
 package org.citydb.ade.energy.importer;
 
 import org.citydb.ade.energy.schema.ADETable;
-import org.citydb.ade.importer.ADEImporter;
-import org.citydb.ade.importer.CityGMLImportHelper;
-import org.citydb.ade.importer.ForeignKeys;
-import org.citydb.citygml.importer.CityGMLImportException;
-import org.citydb.citygml.importer.util.AttributeValueJoiner;
-import org.citydb.database.schema.mapping.AbstractObjectType;
-import org.citygml4j.ade.energy.model.supportingClasses.AbstractTimeSeries;
-import org.citygml4j.ade.energy.model.supportingClasses.RegularTimeSeries;
-import org.citygml4j.ade.energy.model.supportingClasses.RegularTimeSeriesFile;
-import org.citygml4j.ade.energy.model.supportingClasses.TimeIntervalLength;
-import org.citygml4j.ade.energy.model.supportingClasses.TimePeriod;
-import org.citygml4j.ade.energy.model.supportingClasses.TimePeriodProperty;
-import org.citygml4j.ade.energy.model.supportingClasses.TimeValuesProperties;
+import org.citydb.core.ade.importer.ADEImporter;
+import org.citydb.core.ade.importer.CityGMLImportHelper;
+import org.citydb.core.ade.importer.ForeignKeys;
+import org.citydb.core.database.schema.mapping.AbstractObjectType;
+import org.citydb.core.operation.importer.CityGMLImportException;
+import org.citydb.core.operation.importer.util.AttributeValueJoiner;
+import org.citygml4j.ade.energy.model.supportingClasses.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.*;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
