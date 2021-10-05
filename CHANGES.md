@@ -1,7 +1,13 @@
 Change Log
 ==========
 
-### 1.2.1 - 2021-04-30
+### 1.4.0 - tbd
+
+##### Changes
+* Updated impexp-client-gui to 5.0.0
+* Updated energy-ade-citygml4j to 1.0.4.
+
+### 1.3.0 - 2021-04-30
 
 ##### Fixes
 * Fixed import of properties inherited from `AbstractCityObject` for the `WeatherStation` feature. [#2](https://github.com/3dcitydb/energy-ade-citydb/issues/2)
