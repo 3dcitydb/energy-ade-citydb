@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-### 1.4.0 - tbd
+### 1.4.0 - 2021-10-08
 
 ##### Changes
 * Updated impexp-client-gui to 5.0.0
