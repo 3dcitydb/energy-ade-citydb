@@ -15,45 +15,45 @@
         <complexType id="ng_VolumeTypeType" table="ng_volumetype" objectClassId="50000" path="VolumeType" schema="ng">
             <attribute column="type" type="string" minOccurs="1" maxOccurs="1" path="type" schema="ng"/>
             <complexAttribute minOccurs="1" maxOccurs="1" path="value" schema="ng">
-                <attribute column="value_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="value_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="value" type="double" path="." schema="ng"/>
             </complexAttribute>
         </complexType>
         <complexType id="ng_FloorAreaType" table="ng_floorarea" objectClassId="50003" path="FloorArea" schema="ng">
             <attribute column="type" type="string" minOccurs="1" maxOccurs="1" path="type" schema="ng"/>
             <complexAttribute minOccurs="1" maxOccurs="1" path="value" schema="ng">
-                <attribute column="value_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="value_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="value" type="double" path="." schema="ng"/>
             </complexAttribute>
         </complexType>
         <complexType id="ng_HeightAboveGroundType" table="ng_heightaboveground" objectClassId="50004" path="HeightAboveGround" schema="ng">
             <attribute column="heightreference" type="string" minOccurs="1" maxOccurs="1" path="heightReference" schema="ng"/>
             <complexAttribute minOccurs="1" maxOccurs="1" path="value" schema="ng">
-                <attribute column="value_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="value_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="value" type="double" path="." schema="ng"/>
             </complexAttribute>
         </complexType>
         <complexType id="ng_HeatExchangeTypeType" table="ng_heatexchangetype" objectClassId="50009" path="HeatExchangeType" schema="ng">
             <complexAttribute maxOccurs="1" path="convectiveFraction" schema="ng">
-                <attribute column="convectivefraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="convectivefraction_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="convectivefraction" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="latentFraction" schema="ng">
-                <attribute column="latentfraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="latentfraction_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="latentfraction" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="radiantFraction" schema="ng">
-                <attribute column="radiantfraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="radiantfraction_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="radiantfraction" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute minOccurs="1" maxOccurs="1" path="totalValue" schema="ng">
-                <attribute column="totalvalue_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="totalvalue_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="totalvalue" type="double" path="." schema="ng"/>
             </complexAttribute>
         </complexType>
         <complexType id="ng_TransmittanceType" table="ng_transmittance" objectClassId="50010" path="Transmittance" schema="ng">
             <complexAttribute minOccurs="1" maxOccurs="1" path="fraction" schema="ng">
-                <attribute column="fraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="fraction_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="fraction" type="double" path="." schema="ng"/>
             </complexAttribute>
             <attribute column="wavelengthrange" type="string" minOccurs="1" maxOccurs="1" path="wavelengthRange" schema="ng"/>
@@ -66,13 +66,13 @@
                 <join table="ng_transmittance" fromColumn="id" toColumn="opticalprope_transmittanc_id" toRole="child"/>
             </complexProperty>
             <complexAttribute maxOccurs="1" path="glazingRatio" schema="ng">
-                <attribute column="glazingratio_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="glazingratio_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="glazingratio" type="double" path="." schema="ng"/>
             </complexAttribute>
         </complexType>
         <complexType id="ng_ReflectanceType" table="ng_reflectance" objectClassId="50018" path="Reflectance" schema="ng">
             <complexAttribute minOccurs="1" maxOccurs="1" path="fraction" schema="ng">
-                <attribute column="fraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="fraction_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="fraction" type="double" path="." schema="ng"/>
             </complexAttribute>
             <attribute column="surface" type="string" minOccurs="1" maxOccurs="1" path="surface" schema="ng"/>
@@ -140,7 +140,9 @@
         <objectType id="ng_DailyPatternScheduleType" table="ng_schedule" objectClassId="50030" path="DailyPatternSchedule" schema="ng">
             <extension base="ng_AbstractScheduleType"/>
             <complexProperty refType="ng_PeriodOfYearType" minOccurs="1" path="periodOfYear" schema="ng">
-                <join table="ng_periodofyear" fromColumn="id" toColumn="schedule_periodofyear_id" toRole="child"/>
+                <join table="ng_periodofyear" fromColumn="id" toColumn="schedule_periodofyear_id" toRole="child">
+                    <condition column="objectclass_id" value="${target.objectclass_id}" type="integer"/>
+                </join>
             </complexProperty>
         </objectType>
         <objectType id="ng_RegularTimeSeriesType" table="ng_regulartimeseries" objectClassId="50033" path="RegularTimeSeries" schema="ng">
@@ -148,14 +150,10 @@
                 <join table="ng_timeseries" fromColumn="id" toColumn="id" toRole="parent"/>
             </extension>
             <complexAttribute minOccurs="1" maxOccurs="1" path="timeInterval" schema="ng">
-                <attribute column="timeinterval_unit" type="string" path="@unit" schema="ng"/>
-                <attribute column="timeinterval_radix" type="integer" path="@radix" schema="ng"/>
-                <attribute column="timeinterval_factor" type="integer" path="@factor" schema="ng"/>
+                <attribute column="timeinterval_unit" type="string" path="@unit" schema="gml"/>
+                <attribute column="timeinterval_radix" type="integer" path="@radix" schema="gml"/>
+                <attribute column="timeinterval_factor" type="integer" path="@factor" schema="gml"/>
                 <attribute column="timeinterval" type="double" path="." schema="ng"/>
-            </complexAttribute>
-            <complexAttribute minOccurs="1" maxOccurs="1" path="values" schema="ng">
-                <attribute column="values_" type="clob" path="." schema="ng"/>
-                <attribute column="values_uom" type="string" path="@uom" schema="ng"/>
             </complexAttribute>
             <complexProperty minOccurs="1" maxOccurs="1" path="temporalExtent" schema="ng">
                 <type path="TimePeriod" schema="ng">
@@ -163,6 +161,10 @@
                     <attribute column="timeperiodproper_endposition" type="timestamp" minOccurs="1" maxOccurs="1" path="endPosition" schema="ng"/>
                 </type>
             </complexProperty>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="values" schema="ng">
+                <attribute column="values_" type="clob" path="." schema="ng"/>
+                <attribute column="values_uom" type="string" path="@uom" schema="ng"/>
+            </complexAttribute>
         </objectType>
         <objectType id="ng_RegularTimeSeriesFileType" table="ng_regulartimeseriesfile" objectClassId="50034" path="RegularTimeSeriesFile" schema="ng">
             <extension base="ng_AbstractTimeSeriesType">
@@ -171,9 +173,9 @@
             <attribute column="uom" type="string" minOccurs="1" maxOccurs="1" path="uom" schema="ng"/>
             <attribute column="file_" type="string" minOccurs="1" maxOccurs="1" path="file" schema="ng"/>
             <complexAttribute minOccurs="1" maxOccurs="1" path="timeInterval" schema="ng">
-                <attribute column="timeinterval_unit" type="string" path="@unit" schema="ng"/>
-                <attribute column="timeinterval_radix" type="integer" path="@radix" schema="ng"/>
-                <attribute column="timeinterval_factor" type="integer" path="@factor" schema="ng"/>
+                <attribute column="timeinterval_unit" type="string" path="@unit" schema="gml"/>
+                <attribute column="timeinterval_radix" type="integer" path="@radix" schema="gml"/>
+                <attribute column="timeinterval_factor" type="integer" path="@factor" schema="gml"/>
                 <attribute column="timeinterval" type="double" path="." schema="ng"/>
             </complexAttribute>
             <attribute column="numberofheaderlines" type="integer" maxOccurs="1" path="numberOfHeaderLines" schema="ng"/>
@@ -214,11 +216,11 @@
             </objectProperty>
             <attribute column="enduse" type="string" minOccurs="1" maxOccurs="1" path="endUse" schema="ng"/>
             <complexAttribute maxOccurs="1" path="maximumLoad" schema="ng">
-                <attribute column="maximumload_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="maximumload_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="maximumload" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="energyCarrierType" schema="ng">
-                <attribute column="energycarriertype_codespace" type="string" path="@codespace" schema="ng"/>
+                <attribute column="energycarriertype_codespace" type="string" path="@codespace" schema="gml"/>
                 <attribute column="energycarriertype" type="string" path="." schema="ng"/>
             </complexAttribute>
             <featureProperty target="AbstractCityObjectType" path="demandedBy" schema="ng">
@@ -241,15 +243,15 @@
             </extension>
             <attribute column="thermalboundarytype" type="string" minOccurs="1" maxOccurs="1" path="thermalBoundaryType" schema="ng"/>
             <complexAttribute maxOccurs="1" path="azimuth" schema="ng">
-                <attribute column="azimuth_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="azimuth_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="azimuth" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="inclination" schema="ng">
-                <attribute column="inclination_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="inclination_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="inclination" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="area" schema="ng">
-                <attribute column="area_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="area_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="area" type="double" path="." schema="ng"/>
             </complexAttribute>
             <geometryProperty refColumn="surfacegeometry_id" type="MultiSurface" maxOccurs="1" path="surfaceGeometry" schema="ng"/>
@@ -271,7 +273,7 @@
                 <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
             </extension>
             <complexAttribute maxOccurs="1" path="area" schema="ng">
-                <attribute column="area_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="area_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="area" type="double" path="." schema="ng"/>
             </complexAttribute>
             <featureProperty target="ng_AbstractConstructionType" relationType="aggregation" maxOccurs="1" path="construction" schema="ng">
@@ -288,7 +290,7 @@
                 <join table="ng_volumetype" fromColumn="id" toColumn="thermalzone_volume_id" toRole="child"/>
             </complexProperty>
             <complexAttribute maxOccurs="1" path="infiltrationRate" schema="ng">
-                <attribute column="infiltrationrate_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="infiltrationrate_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="infiltrationrate" type="double" path="." schema="ng"/>
             </complexAttribute>
             <attribute column="iscooled" type="boolean" minOccurs="1" maxOccurs="1" path="isCooled" schema="ng"/>
@@ -306,7 +308,7 @@
         <featureType id="ng_ConstructionType" table="ng_construction" objectClassId="50015" path="Construction" schema="ng">
             <extension base="ng_AbstractConstructionType"/>
             <complexAttribute maxOccurs="1" path="uValue" schema="ng">
-                <attribute column="uvalue_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="uvalue_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="uvalue" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexProperty refType="ng_OpticalPropertiesType" maxOccurs="1" path="opticalProperties" schema="ng">
@@ -329,11 +331,11 @@
                 <join table="cityobject" fromColumn="id" toColumn="id" toRole="parent"/>
             </extension>
             <complexAttribute maxOccurs="1" path="areaFraction" schema="ng">
-                <attribute column="areafraction_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="areafraction_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="areafraction" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="thickness" schema="ng">
-                <attribute column="thickness_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="thickness_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="thickness" type="double" path="." schema="ng"/>
             </complexAttribute>
             <featureProperty target="ng_AbstractMaterialType" relationType="composition" minOccurs="1" maxOccurs="1" path="material" schema="ng">
@@ -348,7 +350,7 @@
             </extension>
             <attribute column="isventilated" type="boolean" maxOccurs="1" path="isVentilated" schema="ng"/>
             <complexAttribute maxOccurs="1" path="rValue" schema="ng">
-                <attribute column="rvalue_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="rvalue_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="rvalue" type="double" path="." schema="ng"/>
             </complexAttribute>
         </featureType>
@@ -357,19 +359,19 @@
                 <join table="ng_material" fromColumn="id" toColumn="id" toRole="parent"/>
             </extension>
             <complexAttribute maxOccurs="1" path="conductivity" schema="ng">
-                <attribute column="conductivity_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="conductivity_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="conductivity" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="density" schema="ng">
-                <attribute column="density_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="density_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="density" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="permeance" schema="ng">
-                <attribute column="permeance_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="permeance_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="permeance" type="double" path="." schema="ng"/>
             </complexAttribute>
             <complexAttribute maxOccurs="1" path="specificHeat" schema="ng">
-                <attribute column="specificheat_uom" type="string" path="@uom" schema="ng"/>
+                <attribute column="specificheat_uom" type="string" path="@uom" schema="gml"/>
                 <attribute column="specificheat" type="double" path="." schema="ng"/>
             </complexAttribute>
         </featureType>
@@ -414,7 +416,7 @@
                 <join table="ng_schedule" fromColumn="heatingschedule_id" toColumn="id" toRole="parent"/>
             </objectProperty>
             <complexAttribute minOccurs="1" maxOccurs="1" path="usageZoneType" schema="ng">
-                <attribute column="usagezonetype_codespace" type="string" path="@codespace" schema="ng"/>
+                <attribute column="usagezonetype_codespace" type="string" path="@codespace" schema="gml"/>
                 <attribute column="usagezonetype" type="string" path="." schema="ng"/>
             </complexAttribute>
             <objectProperty target="ng_AbstractScheduleType" relationType="composition" maxOccurs="1" path="ventilationSchedule" schema="ng">
@@ -448,7 +450,7 @@
         <propertyInjection table="ng_building" defaultBase="AbstractBuildingType">
             <join table="ng_building" fromColumn="ID" toColumn="ID" toRole="child"/>
             <complexAttribute maxOccurs="1" path="buildingType" schema="ng">
-                <attribute column="buildingtype_codespace" type="string" path="@codespace" schema="ng"/>
+                <attribute column="buildingtype_codespace" type="string" path="@codespace" schema="gml"/>
                 <attribute column="buildingtype" type="string" path="." schema="ng"/>
             </complexAttribute>
             <attribute column="constructionweight" type="string" maxOccurs="1" path="constructionWeight" schema="ng"/>

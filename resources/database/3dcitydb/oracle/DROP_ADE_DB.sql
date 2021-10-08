@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2019-04-17 16:53:37 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2021-10-08 13:50:33 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Drop foreign keys ********************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -63,13 +63,13 @@ ALTER TABLE ng_facilities
     DROP CONSTRAINT ng_facilities_fk;
 
 ALTER TABLE ng_facilities
-    DROP CONSTRAINT ng_facilities_heatdissi_fk;
+    DROP CONSTRAINT ng_facili_usagez_equipp_fk;
 
 ALTER TABLE ng_facilities
     DROP CONSTRAINT ng_facilities_operation_fk;
 
 ALTER TABLE ng_facilities
-    DROP CONSTRAINT ng_facili_usagez_equipp_fk;
+    DROP CONSTRAINT ng_facilities_heatdissi_fk;
 
 -- -------------------------------------------------------------------- 
 -- ng_floorarea 
@@ -132,17 +132,20 @@ ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_fk;
 
 ALTER TABLE ng_occupants
+    DROP CONSTRAINT ng_occupa_usagez_occupi_fk;
+
+ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_heatdissip_fk;
 
 ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_occupancyr_fk;
 
-ALTER TABLE ng_occupants
-    DROP CONSTRAINT ng_occupa_usagez_occupi_fk;
-
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
 -- -------------------------------------------------------------------- 
+ALTER TABLE ng_periodofyear
+    DROP CONSTRAINT ng_periodofye_objectcla_fk;
+
 ALTER TABLE ng_periodofyear
     DROP CONSTRAINT ng_period_schedu_period_fk;
 
@@ -192,10 +195,10 @@ ALTER TABLE ng_thermalboundary
     DROP CONSTRAINT ng_thermalboundary_fk;
 
 ALTER TABLE ng_thermalboundary
-    DROP CONSTRAINT ng_thermalbou_construct_fk;
+    DROP CONSTRAINT ng_therma_therma_bounde_fk;
 
 ALTER TABLE ng_thermalboundary
-    DROP CONSTRAINT ng_therma_therma_bounde_fk;
+    DROP CONSTRAINT ng_thermalbou_construct_fk;
 
 ALTER TABLE ng_thermalboundary
     DROP CONSTRAINT ng_thermalbou_surfacege_fk;
@@ -249,19 +252,19 @@ ALTER TABLE ng_usagezone
     DROP CONSTRAINT ng_usagezone_fk;
 
 ALTER TABLE ng_usagezone
-    DROP CONSTRAINT ng_usagez_buildi_usagez_fk;
-
-ALTER TABLE ng_usagezone
-    DROP CONSTRAINT ng_usagez_therma_contai_fk;
-
-ALTER TABLE ng_usagezone
     DROP CONSTRAINT ng_usagezone_coolingsch_fk;
 
 ALTER TABLE ng_usagezone
     DROP CONSTRAINT ng_usagezone_heatingsch_fk;
 
 ALTER TABLE ng_usagezone
+    DROP CONSTRAINT ng_usagez_buildi_usagez_fk;
+
+ALTER TABLE ng_usagezone
     DROP CONSTRAINT ng_usagezone_ventilatio_fk;
+
+ALTER TABLE ng_usagezone
+    DROP CONSTRAINT ng_usagez_therma_contai_fk;
 
 -- -------------------------------------------------------------------- 
 -- ng_volumetype 

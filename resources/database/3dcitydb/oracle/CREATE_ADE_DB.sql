@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2019-04-17 16:53:37 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2021-10-08 13:50:33 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Create tables ************************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -7,7 +7,7 @@
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_building
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     buildingtype VARCHAR2(1000),
     buildingtype_codespace VARCHAR2(1000),
     constructionweight VARCHAR2(1000),
@@ -20,7 +20,7 @@ CREATE TABLE ng_building
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_cityobject
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -29,8 +29,8 @@ CREATE TABLE ng_cityobject
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_construction
 (
-    id INTEGER NOT NULL,
-    opticalproperties_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    opticalproperties_id NUMBER(38),
     uvalue NUMBER,
     uvalue_uom VARCHAR2(1000),
     PRIMARY KEY (id)
@@ -41,10 +41,10 @@ CREATE TABLE ng_construction
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_dailyschedule
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     daytype VARCHAR2(1000),
-    periodofyear_dailyschedul_id INTEGER,
-    schedule_id INTEGER,
+    periodofyear_dailyschedul_id NUMBER(38),
+    schedule_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -53,8 +53,8 @@ CREATE TABLE ng_dailyschedule
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_energydem_to_cityobjec
 (
-    cityobject_id INTEGER NOT NULL,
-    energydemand_id INTEGER NOT NULL,
+    cityobject_id NUMBER(38) NOT NULL,
+    energydemand_id NUMBER(38) NOT NULL,
     PRIMARY KEY (cityobject_id, energydemand_id)
 );
 
@@ -63,10 +63,10 @@ CREATE TABLE ng_energydem_to_cityobjec
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_energydemand
 (
-    id INTEGER NOT NULL,
-    cityobject_demands_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    cityobject_demands_id NUMBER(38),
     enduse VARCHAR2(1000),
-    energyamount_id INTEGER,
+    energyamount_id NUMBER(38),
     energycarriertype VARCHAR2(1000),
     energycarriertype_codespace VARCHAR2(1000),
     maximumload NUMBER,
@@ -79,11 +79,11 @@ CREATE TABLE ng_energydemand
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_facilities
 (
-    id INTEGER NOT NULL,
-    heatdissipation_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    heatdissipation_id NUMBER(38),
     objectclass_id INTEGER,
-    operationschedule_id INTEGER,
-    usagezone_equippedwith_id INTEGER,
+    operationschedule_id NUMBER(38),
+    usagezone_equippedwith_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -92,11 +92,11 @@ CREATE TABLE ng_facilities
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_floorarea
 (
-    id INTEGER NOT NULL,
-    building_floorarea_id INTEGER,
-    thermalzone_floorarea_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    building_floorarea_id NUMBER(38),
+    thermalzone_floorarea_id NUMBER(38),
     type VARCHAR2(1000),
-    usagezone_floorarea_id INTEGER,
+    usagezone_floorarea_id NUMBER(38),
     value NUMBER,
     value_uom VARCHAR2(1000),
     PRIMARY KEY (id)
@@ -107,7 +107,7 @@ CREATE TABLE ng_floorarea
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_gas
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     isventilated NUMBER,
     rvalue NUMBER,
     rvalue_uom VARCHAR2(1000),
@@ -119,7 +119,7 @@ CREATE TABLE ng_gas
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_heatexchangetype
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     convectivefraction NUMBER,
     convectivefraction_uom VARCHAR2(1000),
     latentfraction NUMBER,
@@ -136,8 +136,8 @@ CREATE TABLE ng_heatexchangetype
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_heightaboveground
 (
-    id INTEGER NOT NULL,
-    building_heightabovegroun_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    building_heightabovegroun_id NUMBER(38),
     heightreference VARCHAR2(1000),
     value NUMBER,
     value_uom VARCHAR2(1000),
@@ -149,8 +149,8 @@ CREATE TABLE ng_heightaboveground
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_layer
 (
-    id INTEGER NOT NULL,
-    construction_layer_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    construction_layer_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -159,11 +159,11 @@ CREATE TABLE ng_layer
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_layercomponent
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     areafraction NUMBER,
     areafraction_uom VARCHAR2(1000),
-    layer_layercomponent_id INTEGER,
-    material_id INTEGER,
+    layer_layercomponent_id NUMBER(38),
+    material_id NUMBER(38),
     thickness NUMBER,
     thickness_uom VARCHAR2(1000),
     PRIMARY KEY (id)
@@ -174,7 +174,7 @@ CREATE TABLE ng_layercomponent
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_material
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     objectclass_id INTEGER,
     PRIMARY KEY (id)
 );
@@ -184,11 +184,11 @@ CREATE TABLE ng_material
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_occupants
 (
-    id INTEGER NOT NULL,
-    heatdissipation_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    heatdissipation_id NUMBER(38),
     numberofoccupants INTEGER,
-    occupancyrate_id INTEGER,
-    usagezone_occupiedby_id INTEGER,
+    occupancyrate_id NUMBER(38),
+    usagezone_occupiedby_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -197,7 +197,7 @@ CREATE TABLE ng_occupants
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_opticalproperties
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     glazingratio NUMBER,
     glazingratio_uom VARCHAR2(1000),
     PRIMARY KEY (id)
@@ -208,8 +208,9 @@ CREATE TABLE ng_opticalproperties
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_periodofyear
 (
-    id INTEGER NOT NULL,
-    schedule_periodofyear_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    objectclass_id INTEGER,
+    schedule_periodofyear_id NUMBER(38),
     timeperiodprop_beginposition TIMESTAMP,
     timeperiodproper_endposition TIMESTAMP,
     PRIMARY KEY (id)
@@ -220,10 +221,10 @@ CREATE TABLE ng_periodofyear
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_reflectance
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     fraction NUMBER,
     fraction_uom VARCHAR2(1000),
-    opticalproper_reflectance_id INTEGER,
+    opticalproper_reflectance_id NUMBER(38),
     surface VARCHAR2(1000),
     wavelengthrange VARCHAR2(1000),
     PRIMARY KEY (id)
@@ -234,7 +235,7 @@ CREATE TABLE ng_reflectance
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_regulartimeseries
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     timeinterval NUMBER,
     timeinterval_factor INTEGER,
     timeinterval_radix INTEGER,
@@ -251,7 +252,7 @@ CREATE TABLE ng_regulartimeseries
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_regulartimeseriesfile
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     decimalsymbol VARCHAR2(1000),
     fieldseparator VARCHAR2(1000),
     file_ VARCHAR2(1000),
@@ -273,7 +274,7 @@ CREATE TABLE ng_regulartimeseriesfile
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_schedule
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -282,7 +283,7 @@ CREATE TABLE ng_schedule
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_solidmaterial
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     conductivity NUMBER,
     conductivity_uom VARCHAR2(1000),
     density NUMBER,
@@ -299,8 +300,8 @@ CREATE TABLE ng_solidmaterial
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_ther_boun_to_ther_deli
 (
-    thermalboundary_delimits_id INTEGER NOT NULL,
-    thermalzone_boundedby_id INTEGER NOT NULL,
+    thermalboundary_delimits_id NUMBER(38) NOT NULL,
+    thermalzone_boundedby_id NUMBER(38) NOT NULL,
     PRIMARY KEY (thermalboundary_delimits_id, thermalzone_boundedby_id)
 );
 
@@ -309,17 +310,17 @@ CREATE TABLE ng_ther_boun_to_ther_deli
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_thermalboundary
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     area NUMBER,
     area_uom VARCHAR2(1000),
     azimuth NUMBER,
     azimuth_uom VARCHAR2(1000),
-    construction_id INTEGER,
+    construction_id NUMBER(38),
     inclination NUMBER,
     inclination_uom VARCHAR2(1000),
-    surfacegeometry_id INTEGER,
+    surfacegeometry_id NUMBER(38),
     thermalboundarytype VARCHAR2(1000),
-    thermalzone_boundedby_id INTEGER,
+    thermalzone_boundedby_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -328,12 +329,12 @@ CREATE TABLE ng_thermalboundary
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_thermalopening
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     area NUMBER,
     area_uom VARCHAR2(1000),
-    construction_id INTEGER,
-    surfacegeometry_id INTEGER,
-    thermalboundary_contains_id INTEGER,
+    construction_id NUMBER(38),
+    surfacegeometry_id NUMBER(38),
+    thermalboundary_contains_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -342,13 +343,13 @@ CREATE TABLE ng_thermalopening
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_thermalzone
 (
-    id INTEGER NOT NULL,
-    building_thermalzone_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    building_thermalzone_id NUMBER(38),
     infiltrationrate NUMBER,
     infiltrationrate_uom VARCHAR2(1000),
     iscooled NUMBER,
     isheated NUMBER,
-    volumegeometry_id INTEGER,
+    volumegeometry_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -357,7 +358,7 @@ CREATE TABLE ng_thermalzone
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_timeseries
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     objectclass_id INTEGER,
     timevaluesprop_acquisitionme VARCHAR2(1000),
     timevaluesprop_interpolation VARCHAR2(1000),
@@ -372,7 +373,7 @@ CREATE TABLE ng_timeseries
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_timevaluesproperties
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     acquisitionmethod VARCHAR2(1000),
     interpolationtype VARCHAR2(1000),
     qualitydescription VARCHAR2(1000),
@@ -386,10 +387,10 @@ CREATE TABLE ng_timevaluesproperties
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_transmittance
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     fraction NUMBER,
     fraction_uom VARCHAR2(1000),
-    opticalprope_transmittanc_id INTEGER,
+    opticalprope_transmittanc_id NUMBER(38),
     wavelengthrange VARCHAR2(1000),
     PRIMARY KEY (id)
 );
@@ -399,14 +400,14 @@ CREATE TABLE ng_transmittance
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_usagezone
 (
-    id INTEGER NOT NULL,
-    building_usagezone_id INTEGER,
-    coolingschedule_id INTEGER,
-    heatingschedule_id INTEGER,
-    thermalzone_contains_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    building_usagezone_id NUMBER(38),
+    coolingschedule_id NUMBER(38),
+    heatingschedule_id NUMBER(38),
+    thermalzone_contains_id NUMBER(38),
     usagezonetype VARCHAR2(1000),
     usagezonetype_codespace VARCHAR2(1000),
-    ventilationschedule_id INTEGER,
+    ventilationschedule_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -415,9 +416,9 @@ CREATE TABLE ng_usagezone
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_volumetype
 (
-    id INTEGER NOT NULL,
-    building_volume_id INTEGER,
-    thermalzone_volume_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    building_volume_id NUMBER(38),
+    thermalzone_volume_id NUMBER(38),
     type VARCHAR2(1000),
     value NUMBER,
     value_uom VARCHAR2(1000),
@@ -429,12 +430,12 @@ CREATE TABLE ng_volumetype
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_weatherdata
 (
-    id INTEGER NOT NULL,
-    cityobject_weatherdata_id INTEGER,
+    id NUMBER(38) NOT NULL,
+    cityobject_weatherdata_id NUMBER(38),
     position MDSYS.SDO_GEOMETRY,
-    values_id INTEGER,
+    values_id NUMBER(38),
     weatherdatatype VARCHAR2(1000),
-    weatherstation_parameter_id INTEGER,
+    weatherstation_parameter_id NUMBER(38),
     PRIMARY KEY (id)
 );
 
@@ -443,7 +444,7 @@ CREATE TABLE ng_weatherdata
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_weatherstation
 (
-    id INTEGER NOT NULL,
+    id NUMBER(38) NOT NULL,
     genericapplicationpropertyof CLOB,
     position MDSYS.SDO_GEOMETRY,
     stationname VARCHAR2(1000),
@@ -519,16 +520,16 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
-ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_heatdissi_fk FOREIGN KEY (heatdissipation_id)
-REFERENCES ng_heatexchangetype (id)
-ON DELETE SET NULL;
+ALTER TABLE ng_facilities ADD CONSTRAINT ng_facili_usagez_equipp_fk FOREIGN KEY (usagezone_equippedwith_id)
+REFERENCES ng_usagezone (id);
 
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_operation_fk FOREIGN KEY (operationschedule_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
 
-ALTER TABLE ng_facilities ADD CONSTRAINT ng_facili_usagez_equipp_fk FOREIGN KEY (usagezone_equippedwith_id)
-REFERENCES ng_usagezone (id);
+ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_heatdissi_fk FOREIGN KEY (heatdissipation_id)
+REFERENCES ng_heatexchangetype (id)
+ON DELETE SET NULL;
 
 -- -------------------------------------------------------------------- 
 -- ng_floorarea 
@@ -591,6 +592,9 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
+ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
+REFERENCES ng_usagezone (id);
+
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_heatdissip_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
@@ -599,12 +603,12 @@ ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_occupancyr_fk FOREIGN KEY (
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
 
-ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
-REFERENCES ng_usagezone (id);
-
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
 -- -------------------------------------------------------------------- 
+ALTER TABLE ng_periodofyear ADD CONSTRAINT ng_periodofye_objectcla_fk FOREIGN KEY (objectclass_id)
+REFERENCES objectclass (id);
+
 ALTER TABLE ng_periodofyear ADD CONSTRAINT ng_period_schedu_period_fk FOREIGN KEY (schedule_periodofyear_id)
 REFERENCES ng_schedule (id);
 
@@ -654,12 +658,12 @@ ON DELETE CASCADE;
 ALTER TABLE ng_thermalboundary ADD CONSTRAINT ng_thermalboundary_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
+ALTER TABLE ng_thermalboundary ADD CONSTRAINT ng_therma_therma_bounde_fk FOREIGN KEY (thermalzone_boundedby_id)
+REFERENCES ng_thermalzone (id);
+
 ALTER TABLE ng_thermalboundary ADD CONSTRAINT ng_thermalbou_construct_fk FOREIGN KEY (construction_id)
 REFERENCES ng_construction (id)
 ON DELETE SET NULL;
-
-ALTER TABLE ng_thermalboundary ADD CONSTRAINT ng_therma_therma_bounde_fk FOREIGN KEY (thermalzone_boundedby_id)
-REFERENCES ng_thermalzone (id);
 
 ALTER TABLE ng_thermalboundary ADD CONSTRAINT ng_thermalbou_surfacege_fk FOREIGN KEY (surfacegeometry_id)
 REFERENCES surface_geometry (id);
@@ -713,13 +717,6 @@ REFERENCES ng_opticalproperties (id);
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
-ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_buildi_usagez_fk FOREIGN KEY (building_usagezone_id)
-REFERENCES ng_building (id);
-
-ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_therma_contai_fk FOREIGN KEY (thermalzone_contains_id)
-REFERENCES ng_thermalzone (id)
-ON DELETE SET NULL;
-
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_coolingsch_fk FOREIGN KEY (coolingschedule_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
@@ -728,8 +725,15 @@ ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_heatingsch_fk FOREIGN KEY (
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
 
+ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_buildi_usagez_fk FOREIGN KEY (building_usagezone_id)
+REFERENCES ng_building (id);
+
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_ventilatio_fk FOREIGN KEY (ventilationschedule_id)
 REFERENCES ng_schedule (id)
+ON DELETE SET NULL;
+
+ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_therma_contai_fk FOREIGN KEY (thermalzone_contains_id)
+REFERENCES ng_thermalzone (id)
 ON DELETE SET NULL;
 
 -- -------------------------------------------------------------------- 
@@ -872,6 +876,8 @@ CREATE INDEX ng_occupa_usagez_occup_fkx ON ng_occupants (usagezone_occupiedby_id
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
 -- -------------------------------------------------------------------- 
+CREATE INDEX ng_periodofy_objectcla_fkx ON ng_periodofyear (objectclass_id);
+
 CREATE INDEX ng_period_schedu_perio_fkx ON ng_periodofyear (schedule_periodofyear_id);
 
 -- -------------------------------------------------------------------- 
