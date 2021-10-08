@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-### 1.4.0 - 2021-10-08
+### 2.0.0 - 2021-10-08
 
 ##### Changes
 * Updated PostgreSQL database schema to use 64-bit `bigint` as data type instead of 32-bit `integer` for all 
