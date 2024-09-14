@@ -1,4 +1,28 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 17:01:14 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- *********************************** Create Sequences *********************************** 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+CREATE SEQUENCE ng_heatexchangetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_volumetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_dailyschedule_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_timevaluesproperti_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_periodofyear_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_heightaboveground_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_floorarea_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_reflectance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_transmittance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_opticalproperties_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Create tables ************************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -592,6 +616,9 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
+ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
+REFERENCES ng_usagezone (id);
+
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_heatdissip_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
@@ -599,9 +626,6 @@ ON DELETE SET NULL;
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_occupancyr_fk FOREIGN KEY (occupancyrate_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
-
-ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
-REFERENCES ng_usagezone (id);
 
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
@@ -970,28 +994,4 @@ INSERT INTO USER_SDO_GEOM_METADATA (TABLE_NAME, COLUMN_NAME, DIMINFO, SRID)
 VALUES ('NG_WEATHERSTATION','POSITION',
 MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 0.000, 10000000.000, 0.0005), MDSYS.SDO_DIM_ELEMENT('Y', 0.000, 10000000.000, 0.0005),MDSYS.SDO_DIM_ELEMENT('Z', -1000, 10000, 0.0005)), &SRSNO);
 CREATE INDEX ng_weathersta_position_spx ON ng_weatherstation (position) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
-
--- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
--- *********************************** Create Sequences *********************************** 
--- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-
-CREATE SEQUENCE ng_heatexchangetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_volumetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_dailyschedule_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_timevaluesproperti_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_periodofyear_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_heightaboveground_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_floorarea_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_reflectance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_transmittance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_opticalproperties_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 

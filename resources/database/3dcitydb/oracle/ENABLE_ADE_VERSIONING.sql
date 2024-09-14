@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 17:01:14 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Enable Versioning ********************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 

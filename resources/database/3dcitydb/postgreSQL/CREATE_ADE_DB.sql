@@ -1,4 +1,108 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 17:01:14 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- *********************************** Create Sequences *********************************** 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+CREATE SEQUENCE ng_heatexchangetype_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_volumetype_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_dailyschedule_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_timevaluesproperti_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_periodofyear_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_heightaboveground_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_floorarea_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_reflectance_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_transmittance_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_opticalproperties_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Create tables ************************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -592,6 +696,9 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
+ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
+REFERENCES ng_usagezone (id);
+
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_heatdissip_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
@@ -599,9 +706,6 @@ ON DELETE SET NULL;
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_occupancyr_fk FOREIGN KEY (occupancyrate_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
-
-ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
-REFERENCES ng_usagezone (id);
 
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
@@ -1143,108 +1247,4 @@ CREATE INDEX ng_weathersta_position_spx ON ng_weatherstation
     (
       position
     );
-
--- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
--- *********************************** Create Sequences *********************************** 
--- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-
-CREATE SEQUENCE ng_heatexchangetype_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_volumetype_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_dailyschedule_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_timevaluesproperti_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_periodofyear_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_heightaboveground_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_floorarea_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_reflectance_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_transmittance_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_opticalproperties_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
 

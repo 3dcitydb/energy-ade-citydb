@@ -155,16 +155,16 @@
                 <attribute column="timeinterval_factor" type="integer" path="@factor" schema="gml"/>
                 <attribute column="timeinterval" type="double" path="." schema="ng"/>
             </complexAttribute>
+            <complexAttribute minOccurs="1" maxOccurs="1" path="values" schema="ng">
+                <attribute column="values_" type="clob" path="." schema="ng"/>
+                <attribute column="values_uom" type="string" path="@uom" schema="ng"/>
+            </complexAttribute>
             <complexProperty minOccurs="1" maxOccurs="1" path="temporalExtent" schema="ng">
                 <type path="TimePeriod" schema="ng">
                     <attribute column="timeperiodprop_beginposition" type="timestamp" minOccurs="1" maxOccurs="1" path="beginPosition" schema="ng"/>
                     <attribute column="timeperiodproper_endposition" type="timestamp" minOccurs="1" maxOccurs="1" path="endPosition" schema="ng"/>
                 </type>
             </complexProperty>
-            <complexAttribute minOccurs="1" maxOccurs="1" path="values" schema="ng">
-                <attribute column="values_" type="clob" path="." schema="ng"/>
-                <attribute column="values_uom" type="string" path="@uom" schema="ng"/>
-            </complexAttribute>
         </objectType>
         <objectType id="ng_RegularTimeSeriesFileType" table="ng_regulartimeseriesfile" objectClassId="50034" path="RegularTimeSeriesFile" schema="ng">
             <extension base="ng_AbstractTimeSeriesType">

@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 17:01:14 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Drop foreign keys ********************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -132,13 +132,13 @@ ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_fk;
 
 ALTER TABLE ng_occupants
+    DROP CONSTRAINT ng_occupa_usagez_occupi_fk;
+
+ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_heatdissip_fk;
 
 ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_occupancyr_fk;
-
-ALTER TABLE ng_occupants
-    DROP CONSTRAINT ng_occupa_usagez_occupi_fk;
 
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
