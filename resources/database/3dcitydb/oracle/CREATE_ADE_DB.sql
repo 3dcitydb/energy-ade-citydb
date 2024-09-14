@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2021-10-08 13:50:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Create tables ************************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -520,9 +520,6 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
-ALTER TABLE ng_facilities ADD CONSTRAINT ng_facili_usagez_equipp_fk FOREIGN KEY (usagezone_equippedwith_id)
-REFERENCES ng_usagezone (id);
-
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_operation_fk FOREIGN KEY (operationschedule_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
@@ -530,6 +527,9 @@ ON DELETE SET NULL;
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_heatdissi_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
+
+ALTER TABLE ng_facilities ADD CONSTRAINT ng_facili_usagez_equipp_fk FOREIGN KEY (usagezone_equippedwith_id)
+REFERENCES ng_usagezone (id);
 
 -- -------------------------------------------------------------------- 
 -- ng_floorarea 
@@ -592,9 +592,6 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
-ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
-REFERENCES ng_usagezone (id);
-
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_heatdissip_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
@@ -602,6 +599,9 @@ ON DELETE SET NULL;
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_occupancyr_fk FOREIGN KEY (occupancyrate_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
+
+ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
+REFERENCES ng_usagezone (id);
 
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
@@ -725,12 +725,12 @@ ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_heatingsch_fk FOREIGN KEY (
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
 
-ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_buildi_usagez_fk FOREIGN KEY (building_usagezone_id)
-REFERENCES ng_building (id);
-
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_ventilatio_fk FOREIGN KEY (ventilationschedule_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
+
+ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_buildi_usagez_fk FOREIGN KEY (building_usagezone_id)
+REFERENCES ng_building (id);
 
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_therma_contai_fk FOREIGN KEY (thermalzone_contains_id)
 REFERENCES ng_thermalzone (id)
@@ -975,23 +975,23 @@ CREATE INDEX ng_weathersta_position_spx ON ng_weatherstation (position) INDEXTYP
 -- *********************************** Create Sequences *********************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
-CREATE SEQUENCE ng_volumetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_floorarea_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_heightaboveground_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
 CREATE SEQUENCE ng_heatexchangetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 
-CREATE SEQUENCE ng_transmittance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+CREATE SEQUENCE ng_volumetype_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 
-CREATE SEQUENCE ng_opticalproperties_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
-
-CREATE SEQUENCE ng_reflectance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+CREATE SEQUENCE ng_dailyschedule_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 
 CREATE SEQUENCE ng_timevaluesproperti_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 
 CREATE SEQUENCE ng_periodofyear_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 
-CREATE SEQUENCE ng_dailyschedule_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+CREATE SEQUENCE ng_heightaboveground_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_floorarea_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_reflectance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_transmittance_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
+
+CREATE SEQUENCE ng_opticalproperties_seq INCREMENT BY 1 START WITH 1 MINVALUE 1 CACHE 10000;
 

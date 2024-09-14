@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <schemaMapping xmlns="http://www.3dcitydb.org/database/schema/1.0">
     <metadata>
-        <name>KitEnergyADE</name>
+        <name>EnergyADE</name>
         <version>1.0</version>
-        <description>KitEnergyADE</description>
+        <description>KIT profile of the EnergyADE</description>
         <dbPrefix>ng</dbPrefix>
     </metadata>
     <applicationSchemas>

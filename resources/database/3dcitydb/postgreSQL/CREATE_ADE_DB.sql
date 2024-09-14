@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2021-10-08 13:50:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Create tables ************************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -41,7 +41,7 @@ CREATE TABLE ng_construction
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_dailyschedule
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_dailyschedule_seq'::regclass) NOT NULL,
     daytype VARCHAR(1000),
     periodofyear_dailyschedul_id BIGINT,
     schedule_id BIGINT,
@@ -92,7 +92,7 @@ CREATE TABLE ng_facilities
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_floorarea
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_floorarea_seq'::regclass) NOT NULL,
     building_floorarea_id BIGINT,
     thermalzone_floorarea_id BIGINT,
     type VARCHAR(1000),
@@ -119,7 +119,7 @@ CREATE TABLE ng_gas
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_heatexchangetype
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_heatexchangetype_seq'::regclass) NOT NULL,
     convectivefraction NUMERIC,
     convectivefraction_uom VARCHAR(1000),
     latentfraction NUMERIC,
@@ -136,7 +136,7 @@ CREATE TABLE ng_heatexchangetype
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_heightaboveground
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_heightaboveground_seq'::regclass) NOT NULL,
     building_heightabovegroun_id BIGINT,
     heightreference VARCHAR(1000),
     value NUMERIC,
@@ -197,7 +197,7 @@ CREATE TABLE ng_occupants
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_opticalproperties
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_opticalproperties_seq'::regclass) NOT NULL,
     glazingratio NUMERIC,
     glazingratio_uom VARCHAR(1000),
     PRIMARY KEY (id)
@@ -208,7 +208,7 @@ CREATE TABLE ng_opticalproperties
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_periodofyear
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_periodofyear_seq'::regclass) NOT NULL,
     objectclass_id INTEGER,
     schedule_periodofyear_id BIGINT,
     timeperiodprop_beginposition TIMESTAMP WITH TIME ZONE,
@@ -221,7 +221,7 @@ CREATE TABLE ng_periodofyear
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_reflectance
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_reflectance_seq'::regclass) NOT NULL,
     fraction NUMERIC,
     fraction_uom VARCHAR(1000),
     opticalproper_reflectance_id BIGINT,
@@ -373,7 +373,7 @@ CREATE TABLE ng_timeseries
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_timevaluesproperties
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_timevaluesproperti_seq'::regclass) NOT NULL,
     acquisitionmethod VARCHAR(1000),
     interpolationtype VARCHAR(1000),
     qualitydescription VARCHAR(1000),
@@ -387,7 +387,7 @@ CREATE TABLE ng_timevaluesproperties
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_transmittance
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_transmittance_seq'::regclass) NOT NULL,
     fraction NUMERIC,
     fraction_uom VARCHAR(1000),
     opticalprope_transmittanc_id BIGINT,
@@ -416,7 +416,7 @@ CREATE TABLE ng_usagezone
 -- -------------------------------------------------------------------- 
 CREATE TABLE ng_volumetype
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL DEFAULT nextval('ng_volumetype_seq'::regclass) NOT NULL,
     building_volume_id BIGINT,
     thermalzone_volume_id BIGINT,
     type VARCHAR(1000),
@@ -520,9 +520,6 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
-ALTER TABLE ng_facilities ADD CONSTRAINT ng_facili_usagez_equipp_fk FOREIGN KEY (usagezone_equippedwith_id)
-REFERENCES ng_usagezone (id);
-
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_operation_fk FOREIGN KEY (operationschedule_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
@@ -530,6 +527,9 @@ ON DELETE SET NULL;
 ALTER TABLE ng_facilities ADD CONSTRAINT ng_facilities_heatdissi_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
+
+ALTER TABLE ng_facilities ADD CONSTRAINT ng_facili_usagez_equipp_fk FOREIGN KEY (usagezone_equippedwith_id)
+REFERENCES ng_usagezone (id);
 
 -- -------------------------------------------------------------------- 
 -- ng_floorarea 
@@ -592,9 +592,6 @@ REFERENCES objectclass (id);
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_fk FOREIGN KEY (id)
 REFERENCES cityobject (id);
 
-ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
-REFERENCES ng_usagezone (id);
-
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_heatdissip_fk FOREIGN KEY (heatdissipation_id)
 REFERENCES ng_heatexchangetype (id)
 ON DELETE SET NULL;
@@ -602,6 +599,9 @@ ON DELETE SET NULL;
 ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupants_occupancyr_fk FOREIGN KEY (occupancyrate_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
+
+ALTER TABLE ng_occupants ADD CONSTRAINT ng_occupa_usagez_occupi_fk FOREIGN KEY (usagezone_occupiedby_id)
+REFERENCES ng_usagezone (id);
 
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
@@ -725,12 +725,12 @@ ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_heatingsch_fk FOREIGN KEY (
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
 
-ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_buildi_usagez_fk FOREIGN KEY (building_usagezone_id)
-REFERENCES ng_building (id);
-
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagezone_ventilatio_fk FOREIGN KEY (ventilationschedule_id)
 REFERENCES ng_schedule (id)
 ON DELETE SET NULL;
+
+ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_buildi_usagez_fk FOREIGN KEY (building_usagezone_id)
+REFERENCES ng_building (id);
 
 ALTER TABLE ng_usagezone ADD CONSTRAINT ng_usagez_therma_contai_fk FOREIGN KEY (thermalzone_contains_id)
 REFERENCES ng_thermalzone (id)
@@ -1148,36 +1148,6 @@ CREATE INDEX ng_weathersta_position_spx ON ng_weatherstation
 -- *********************************** Create Sequences *********************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
-CREATE SEQUENCE ng_volumetype_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_floorarea_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_heightaboveground_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
 CREATE SEQUENCE ng_heatexchangetype_seq
 INCREMENT BY 1
 MINVALUE 0
@@ -1188,7 +1158,7 @@ NO CYCLE
 OWNED BY NONE;
 
 
-CREATE SEQUENCE ng_transmittance_seq
+CREATE SEQUENCE ng_volumetype_seq
 INCREMENT BY 1
 MINVALUE 0
 MAXVALUE 9223372036854775807
@@ -1198,17 +1168,7 @@ NO CYCLE
 OWNED BY NONE;
 
 
-CREATE SEQUENCE ng_opticalproperties_seq
-INCREMENT BY 1
-MINVALUE 0
-MAXVALUE 9223372036854775807
-START WITH 1
-CACHE 1
-NO CYCLE
-OWNED BY NONE;
-
-
-CREATE SEQUENCE ng_reflectance_seq
+CREATE SEQUENCE ng_dailyschedule_seq
 INCREMENT BY 1
 MINVALUE 0
 MAXVALUE 9223372036854775807
@@ -1238,7 +1198,47 @@ NO CYCLE
 OWNED BY NONE;
 
 
-CREATE SEQUENCE ng_dailyschedule_seq
+CREATE SEQUENCE ng_heightaboveground_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_floorarea_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_reflectance_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_transmittance_seq
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 9223372036854775807
+START WITH 1
+CACHE 1
+NO CYCLE
+OWNED BY NONE;
+
+
+CREATE SEQUENCE ng_opticalproperties_seq
 INCREMENT BY 1
 MINVALUE 0
 MAXVALUE 9223372036854775807

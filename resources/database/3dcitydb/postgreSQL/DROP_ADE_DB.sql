@@ -1,4 +1,4 @@
--- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2021-10-08 13:50:33 
+-- This document was automatically created by the ADE-Manager tool of 3DCityDB (https://www.3dcitydb.org) on 2024-09-14 16:04:33 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- *********************************** Drop foreign keys ********************************** 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -63,13 +63,13 @@ ALTER TABLE ng_facilities
     DROP CONSTRAINT ng_facilities_fk;
 
 ALTER TABLE ng_facilities
-    DROP CONSTRAINT ng_facili_usagez_equipp_fk;
-
-ALTER TABLE ng_facilities
     DROP CONSTRAINT ng_facilities_operation_fk;
 
 ALTER TABLE ng_facilities
     DROP CONSTRAINT ng_facilities_heatdissi_fk;
+
+ALTER TABLE ng_facilities
+    DROP CONSTRAINT ng_facili_usagez_equipp_fk;
 
 -- -------------------------------------------------------------------- 
 -- ng_floorarea 
@@ -132,13 +132,13 @@ ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_fk;
 
 ALTER TABLE ng_occupants
-    DROP CONSTRAINT ng_occupa_usagez_occupi_fk;
-
-ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_heatdissip_fk;
 
 ALTER TABLE ng_occupants
     DROP CONSTRAINT ng_occupants_occupancyr_fk;
+
+ALTER TABLE ng_occupants
+    DROP CONSTRAINT ng_occupa_usagez_occupi_fk;
 
 -- -------------------------------------------------------------------- 
 -- ng_periodofyear 
@@ -258,10 +258,10 @@ ALTER TABLE ng_usagezone
     DROP CONSTRAINT ng_usagezone_heatingsch_fk;
 
 ALTER TABLE ng_usagezone
-    DROP CONSTRAINT ng_usagez_buildi_usagez_fk;
+    DROP CONSTRAINT ng_usagezone_ventilatio_fk;
 
 ALTER TABLE ng_usagezone
-    DROP CONSTRAINT ng_usagezone_ventilatio_fk;
+    DROP CONSTRAINT ng_usagez_buildi_usagez_fk;
 
 ALTER TABLE ng_usagezone
     DROP CONSTRAINT ng_usagez_therma_contai_fk;
@@ -468,22 +468,22 @@ DROP TABLE ng_weatherstation;
 -- *********************************** Drop Sequences ************************************* 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
-DROP SEQUENCE ng_volumetype_seq;
-
-DROP SEQUENCE ng_floorarea_seq;
-
-DROP SEQUENCE ng_heightaboveground_seq;
-
 DROP SEQUENCE ng_heatexchangetype_seq;
 
-DROP SEQUENCE ng_transmittance_seq;
+DROP SEQUENCE ng_volumetype_seq;
 
-DROP SEQUENCE ng_opticalproperties_seq;
-
-DROP SEQUENCE ng_reflectance_seq;
+DROP SEQUENCE ng_dailyschedule_seq;
 
 DROP SEQUENCE ng_timevaluesproperti_seq;
 
 DROP SEQUENCE ng_periodofyear_seq;
 
-DROP SEQUENCE ng_dailyschedule_seq;
+DROP SEQUENCE ng_heightaboveground_seq;
+
+DROP SEQUENCE ng_floorarea_seq;
+
+DROP SEQUENCE ng_reflectance_seq;
+
+DROP SEQUENCE ng_transmittance_seq;
+
+DROP SEQUENCE ng_opticalproperties_seq;
