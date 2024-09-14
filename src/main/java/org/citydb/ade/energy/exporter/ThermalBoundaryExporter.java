@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -82,7 +82,7 @@ public class ThermalBoundaryExporter implements ADEExporter {
         Table cityObject = new Table(helper.getTableNameWithSchema(MappingConstants.CITYOBJECT));
 
         Select select = new Select().addProjection(table.getColumn("id"), table.getColumn("thermalboundarytype"),
-                table.getColumn("surfacegeometry_id"), table.getColumn("construction_id"), cityObject.getColumn("gmlid"))
+                        table.getColumn("surfacegeometry_id"), table.getColumn("construction_id"), cityObject.getColumn("gmlid"))
                 .addJoin(JoinFactory.left(delimits, "thermalboundary_delimits_id", ComparisonName.EQUAL_TO, table.getColumn("id")))
                 .addJoin(JoinFactory.left(cityObject, "id", ComparisonName.EQUAL_TO, delimits.getColumn("thermalzone_boundedby_id")));
         if (boundaryProjectionFilter.containsProperty("azimuth", module))

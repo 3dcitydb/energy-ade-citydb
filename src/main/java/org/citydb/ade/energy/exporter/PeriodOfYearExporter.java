@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -56,8 +56,8 @@ public class PeriodOfYearExporter implements ADEExporter {
         Table dailySchedule = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.DAILYSCHEDULE)));
 
         Select select = new Select().addProjection(table.getColumn("id"),
-                table.getColumn("timeperiodprop_beginposition"), table.getColumn("timeperiodproper_endposition"),
-                dailySchedule.getColumn("daytype"), dailySchedule.getColumn("schedule_id"))
+                        table.getColumn("timeperiodprop_beginposition"), table.getColumn("timeperiodproper_endposition"),
+                        dailySchedule.getColumn("daytype"), dailySchedule.getColumn("schedule_id"))
                 .addJoin(JoinFactory.left(dailySchedule, "periodofyear_dailyschedul_id", ComparisonName.EQUAL_TO, table.getColumn("id")));
         select.addSelection(ComparisonFactory.equalTo(table.getColumn("schedule_periodofyear_id"), new PlaceHolder<>()));
         ps = connection.prepareStatement(select.toString());

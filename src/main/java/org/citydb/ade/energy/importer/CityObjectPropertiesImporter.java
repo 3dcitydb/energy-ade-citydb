@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -47,69 +47,69 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CityObjectPropertiesImporter implements ADEImporter {
-	private final CityGMLImportHelper helper;
-	private final SchemaMapper schemaMapper;
+    private final CityGMLImportHelper helper;
+    private final SchemaMapper schemaMapper;
 
-	private PreparedStatement ps;
-	private int batchCounter;
+    private PreparedStatement ps;
+    private int batchCounter;
 
-	public CityObjectPropertiesImporter(Connection connection, CityGMLImportHelper helper, ImportManager manager) throws CityGMLImportException, SQLException {
-		this.helper = helper;
-		this.schemaMapper = manager.getSchemaMapper();
+    public CityObjectPropertiesImporter(Connection connection, CityGMLImportHelper helper, ImportManager manager) throws CityGMLImportException, SQLException {
+        this.helper = helper;
+        this.schemaMapper = manager.getSchemaMapper();
 
-		ps = connection.prepareStatement("insert into " +
-				helper.getTableNameWithSchema(schemaMapper.getTableName(ADETable.CITYOBJECT)) + " " +
-				"(id) " +
-				"values (?)");
-	}
+        ps = connection.prepareStatement("insert into " +
+                helper.getTableNameWithSchema(schemaMapper.getTableName(ADETable.CITYOBJECT)) + " " +
+                "(id) " +
+                "values (?)");
+    }
 
-	public void doImport(ADEPropertyCollection properties, AbstractCityObject parent, long parentId, FeatureType parentType) throws CityGMLImportException, SQLException {
-		ps.setLong(1, parentId);
+    public void doImport(ADEPropertyCollection properties, AbstractCityObject parent, long parentId, FeatureType parentType) throws CityGMLImportException, SQLException {
+        ps.setLong(1, parentId);
 
-		ps.addBatch();
-		if (++batchCounter == helper.getDatabaseAdapter().getMaxBatchSize())
-			helper.executeBatch(schemaMapper.getTableName(ADETable.CITYOBJECT));
+        ps.addBatch();
+        if (++batchCounter == helper.getDatabaseAdapter().getMaxBatchSize())
+            helper.executeBatch(schemaMapper.getTableName(ADETable.CITYOBJECT));
 
-		if (properties.contains(DemandsProperty.class)) {
-			for (DemandsProperty propertyElement : properties.getAll(DemandsProperty.class)) {
-				EnergyDemand energyDemand = propertyElement.getValue().getEnergyDemand();
-				if (energyDemand != null) {
-					helper.importObject(energyDemand, ForeignKeys.create().with("cityObjectId", parentId));
-					propertyElement.getValue().unsetEnergyDemand();
-				} else {
-					String href = propertyElement.getValue().getHref();
-					if (href != null && href.length() != 0)
-						helper.logOrThrowUnsupportedXLinkMessage(parent, EnergyDemand.class, href);
-				}
-			}
-		}
+        if (properties.contains(DemandsProperty.class)) {
+            for (DemandsProperty propertyElement : properties.getAll(DemandsProperty.class)) {
+                EnergyDemand energyDemand = propertyElement.getValue().getEnergyDemand();
+                if (energyDemand != null) {
+                    helper.importObject(energyDemand, ForeignKeys.create().with("cityObjectId", parentId));
+                    propertyElement.getValue().unsetEnergyDemand();
+                } else {
+                    String href = propertyElement.getValue().getHref();
+                    if (href != null && href.length() != 0)
+                        helper.logOrThrowUnsupportedXLinkMessage(parent, EnergyDemand.class, href);
+                }
+            }
+        }
 
-		if (properties.contains(WeatherDataPropertyElement.class)) {
-			for (WeatherDataPropertyElement propertyElement : properties.getAll(WeatherDataPropertyElement.class)) {
-				WeatherData weatherData = propertyElement.getValue().getWeatherData();
-				if (weatherData != null) {
-					helper.importObject(weatherData, ForeignKeys.create().with("cityObjectId", parentId));
-					propertyElement.getValue().unsetWeatherData();
-				} else {
-					String href = propertyElement.getValue().getHref();
-					if (href != null && href.length() != 0)
-						helper.logOrThrowUnsupportedXLinkMessage(parent, WeatherData.class, href);
-				}
-			}
-		}
-	}
+        if (properties.contains(WeatherDataPropertyElement.class)) {
+            for (WeatherDataPropertyElement propertyElement : properties.getAll(WeatherDataPropertyElement.class)) {
+                WeatherData weatherData = propertyElement.getValue().getWeatherData();
+                if (weatherData != null) {
+                    helper.importObject(weatherData, ForeignKeys.create().with("cityObjectId", parentId));
+                    propertyElement.getValue().unsetWeatherData();
+                } else {
+                    String href = propertyElement.getValue().getHref();
+                    if (href != null && href.length() != 0)
+                        helper.logOrThrowUnsupportedXLinkMessage(parent, WeatherData.class, href);
+                }
+            }
+        }
+    }
 
-	@Override
-	public void executeBatch() throws CityGMLImportException, SQLException {
-		if (batchCounter > 0) {
-			ps.executeBatch();
-			batchCounter = 0;
-		}
-	}
+    @Override
+    public void executeBatch() throws CityGMLImportException, SQLException {
+        if (batchCounter > 0) {
+            ps.executeBatch();
+            batchCounter = 0;
+        }
+    }
 
-	@Override
-	public void close() throws CityGMLImportException, SQLException {
-		ps.close();
-	}
+    @Override
+    public void close() throws CityGMLImportException, SQLException {
+        ps.close();
+    }
 
 }

@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -70,18 +70,18 @@ public class TimeSeriesExporter implements ADEExporter {
         Table regularTimeSeriesFile = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.REGULARTIMESERIESFILE)));
 
         Select select = new Select().addProjection(table.getColumn("objectclass_id"),
-                table.getColumn("timevaluesprop_acquisitionme"), table.getColumn("timevaluesprop_interpolation"),
-                table.getColumn("timevaluesprop_qualitydescri"), table.getColumn("timevaluespropertiest_source"),
-                table.getColumn("timevaluesprop_thematicdescr"),
-                regularTimeSeries.getColumn("values_"), regularTimeSeries.getColumn("values_uom"),
-                regularTimeSeries.getColumn("timeperiodprop_beginposition"), regularTimeSeries.getColumn("timeperiodproper_endposition"),
-                regularTimeSeries.getColumn("timeinterval_unit"),regularTimeSeries.getColumn("timeinterval_radix"),
-                regularTimeSeries.getColumn("timeinterval_factor"), regularTimeSeries.getColumn("timeinterval"),
-                regularTimeSeriesFile.getColumn("file_"), regularTimeSeriesFile.getColumn("uom"),
-                regularTimeSeriesFile.getColumn("fieldseparator"), regularTimeSeriesFile.getColumn("timeperiodprop_beginposition", "file_beginposition"),
-                regularTimeSeriesFile.getColumn("timeperiodproper_endposition", "file_endposition"), regularTimeSeriesFile.getColumn("timeinterval_unit", "file_unit"),
-                regularTimeSeriesFile.getColumn("timeinterval_radix", "file_radix"), regularTimeSeriesFile.getColumn("timeinterval_factor", "file_factor"),
-                regularTimeSeriesFile.getColumn("timeinterval", "file_timeinterval"))
+                        table.getColumn("timevaluesprop_acquisitionme"), table.getColumn("timevaluesprop_interpolation"),
+                        table.getColumn("timevaluesprop_qualitydescri"), table.getColumn("timevaluespropertiest_source"),
+                        table.getColumn("timevaluesprop_thematicdescr"),
+                        regularTimeSeries.getColumn("values_"), regularTimeSeries.getColumn("values_uom"),
+                        regularTimeSeries.getColumn("timeperiodprop_beginposition"), regularTimeSeries.getColumn("timeperiodproper_endposition"),
+                        regularTimeSeries.getColumn("timeinterval_unit"), regularTimeSeries.getColumn("timeinterval_radix"),
+                        regularTimeSeries.getColumn("timeinterval_factor"), regularTimeSeries.getColumn("timeinterval"),
+                        regularTimeSeriesFile.getColumn("file_"), regularTimeSeriesFile.getColumn("uom"),
+                        regularTimeSeriesFile.getColumn("fieldseparator"), regularTimeSeriesFile.getColumn("timeperiodprop_beginposition", "file_beginposition"),
+                        regularTimeSeriesFile.getColumn("timeperiodproper_endposition", "file_endposition"), regularTimeSeriesFile.getColumn("timeinterval_unit", "file_unit"),
+                        regularTimeSeriesFile.getColumn("timeinterval_radix", "file_radix"), regularTimeSeriesFile.getColumn("timeinterval_factor", "file_factor"),
+                        regularTimeSeriesFile.getColumn("timeinterval", "file_timeinterval"))
                 .addJoin(JoinFactory.left(regularTimeSeries, "id", ComparisonName.EQUAL_TO, table.getColumn("id")))
                 .addJoin(JoinFactory.left(regularTimeSeriesFile, "id", ComparisonName.EQUAL_TO, table.getColumn("id")));
         if (projectionFilter.containsProperty("numberOfHeaderLines", module))

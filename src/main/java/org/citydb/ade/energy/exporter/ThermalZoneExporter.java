@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -79,7 +79,7 @@ public class ThermalZoneExporter implements ADEExporter {
         Table floorArea = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.FLOORAREA)));
 
         Select select = new Select().addProjection(table.getColumn("id"), table.getColumn("iscooled"), table.getColumn("isheated"),
-                floorArea.getColumn("id", "floorarea_id"), floorArea.getColumn("type"), floorArea.getColumn("value"), floorArea.getColumn("value_uom"))
+                        floorArea.getColumn("id", "floorarea_id"), floorArea.getColumn("type"), floorArea.getColumn("value"), floorArea.getColumn("value_uom"))
                 .addJoin(JoinFactory.left(floorArea, "thermalzone_floorarea_id", ComparisonName.EQUAL_TO, table.getColumn("id")));
         if (projectionFilter.containsProperty("infiltrationRate", module))
             select.addProjection(table.getColumn("infiltrationrate"), table.getColumn("infiltrationrate_uom"));

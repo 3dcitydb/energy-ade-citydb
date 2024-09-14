@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -69,11 +69,11 @@ public class OccupantsExporter implements ADEExporter {
         Table heatExchangeType = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.HEATEXCHANGETYPE)));
 
         Select select = new Select().addProjection(table.getColumn("id"), table.getColumn("numberofoccupants"),
-                table.getColumn("occupancyrate_id"),
-                heatExchangeType.getColumn("convectivefraction"), heatExchangeType.getColumn("convectivefraction_uom"),
-                heatExchangeType.getColumn("latentfraction"), heatExchangeType.getColumn("latentfraction_uom"),
-                heatExchangeType.getColumn("radiantfraction"), heatExchangeType.getColumn("radiantfraction_uom"),
-                heatExchangeType.getColumn("totalvalue"), heatExchangeType.getColumn("totalvalue_uom"))
+                        table.getColumn("occupancyrate_id"),
+                        heatExchangeType.getColumn("convectivefraction"), heatExchangeType.getColumn("convectivefraction_uom"),
+                        heatExchangeType.getColumn("latentfraction"), heatExchangeType.getColumn("latentfraction_uom"),
+                        heatExchangeType.getColumn("radiantfraction"), heatExchangeType.getColumn("radiantfraction_uom"),
+                        heatExchangeType.getColumn("totalvalue"), heatExchangeType.getColumn("totalvalue_uom"))
                 .addJoin(JoinFactory.left(heatExchangeType, "id", ComparisonName.EQUAL_TO, table.getColumn("heatdissipation_id")))
                 .addSelection(ComparisonFactory.equalTo(table.getColumn("usagezone_occupiedby_id"), new PlaceHolder<>()));
         ps = connection.prepareStatement(select.toString());

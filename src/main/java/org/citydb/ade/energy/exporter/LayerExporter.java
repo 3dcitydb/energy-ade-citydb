@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -83,12 +83,12 @@ public class LayerExporter implements ADEExporter {
         Table cityObject = new Table(helper.getTableNameWithSchema(MappingConstants.CITYOBJECT));
 
         Select select = new Select().addProjection(table.getColumn("id"), component.getColumn("id", "cid"),
-                component.getColumn("thickness"), component.getColumn("thickness_uom"),
-                material.getColumn("id", "mid"), material.getColumn("objectclass_id"), cityObject.getColumn("gmlid"),
-                gas.getColumn("rvalue"), gas.getColumn("rvalue_uom"),
-                solidMaterial.getColumn("conductivity"), solidMaterial.getColumn("conductivity_uom"),
-                solidMaterial.getColumn("density"), solidMaterial.getColumn("density_uom"),
-                solidMaterial.getColumn("specificheat"), solidMaterial.getColumn("specificheat_uom"))
+                        component.getColumn("thickness"), component.getColumn("thickness_uom"),
+                        material.getColumn("id", "mid"), material.getColumn("objectclass_id"), cityObject.getColumn("gmlid"),
+                        gas.getColumn("rvalue"), gas.getColumn("rvalue_uom"),
+                        solidMaterial.getColumn("conductivity"), solidMaterial.getColumn("conductivity_uom"),
+                        solidMaterial.getColumn("density"), solidMaterial.getColumn("density_uom"),
+                        solidMaterial.getColumn("specificheat"), solidMaterial.getColumn("specificheat_uom"))
                 .addJoin(JoinFactory.left(component, "layer_layercomponent_id", ComparisonName.EQUAL_TO, table.getColumn("id")))
                 .addJoin(JoinFactory.left(material, "id", ComparisonName.EQUAL_TO, component.getColumn("material_id")))
                 .addJoin(JoinFactory.left(gas, "id", ComparisonName.EQUAL_TO, material.getColumn("id")))

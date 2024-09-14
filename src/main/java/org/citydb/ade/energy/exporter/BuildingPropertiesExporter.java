@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -157,7 +157,7 @@ public class BuildingPropertiesExporter implements ADEExporter {
                 }
 
                 if (projectionFilter.containsProperty("thermalZone", module)) {
-                    for (ThermalZone thermalZone :  thermalZoneExporter.doExport(parentId)) {
+                    for (ThermalZone thermalZone : thermalZoneExporter.doExport(parentId)) {
                         ThermalZonePropertyElement property = new ThermalZonePropertyElement(new AbstractThermalZoneProperty(thermalZone));
                         parent.addGenericApplicationPropertyOfAbstractBuilding(property);
                     }

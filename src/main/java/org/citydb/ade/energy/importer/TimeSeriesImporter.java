@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -126,9 +126,7 @@ public class TimeSeriesImporter implements ADEImporter {
             importTimeValues(regularTimeSeries.getTemporalExtent(), regularTimeSeries.getTimeInterval(), psRegularTimeSeries, 4);
 
             psRegularTimeSeries.addBatch();
-        }
-
-        else if (timeSeries instanceof RegularTimeSeriesFile) {
+        } else if (timeSeries instanceof RegularTimeSeriesFile) {
             RegularTimeSeriesFile timeSeriesFile = (RegularTimeSeriesFile) timeSeries;
             psRegularTimeSeriesFile.setLong(1, objectId);
 

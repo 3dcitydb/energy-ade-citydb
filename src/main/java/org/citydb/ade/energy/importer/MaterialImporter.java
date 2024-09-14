@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -76,7 +76,7 @@ public class MaterialImporter implements ADEImporter {
         psMaterial.addBatch();
 
         if (material instanceof SolidMaterial) {
-            SolidMaterial solidMaterial = (SolidMaterial)material;
+            SolidMaterial solidMaterial = (SolidMaterial) material;
 
             psSolidMaterial.setLong(1, objectId);
 
@@ -114,7 +114,7 @@ public class MaterialImporter implements ADEImporter {
 
             psSolidMaterial.addBatch();
         } else if (material instanceof Gas) {
-            Gas gas = (Gas)material;
+            Gas gas = (Gas) material;
 
             psGas.setLong(1, objectId);
             psGas.setInt(2, gas.isVentilated() ? 1 : 0);

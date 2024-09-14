@@ -2,7 +2,7 @@
  * 3D City Database - The Open Source CityGML Database
  * https://www.3dcitydb.org/
  *
- * Copyright 2013 - 2021
+ * Copyright 2013 - 2024
  * Chair of Geoinformatics
  * Technical University of Munich, Germany
  * https://www.lrg.tum.de/gis/
@@ -65,10 +65,10 @@ public class OpticalPropertiesExporter implements ADEExporter {
         Table transmittance = new Table(helper.getTableNameWithSchema(manager.getSchemaMapper().getTableName(ADETable.TRANSMITTANCE)));
 
         Select select = new Select().addProjection(table.getColumn("id"), table.getColumn("glazingratio"),
-                table.getColumn("glazingratio_uom"), reflectance.getColumn("id", "r_id"), reflectance.getColumn("surface"),
-                reflectance.getColumn("wavelengthrange"), reflectance.getColumn("fraction"), reflectance.getColumn("fraction_uom"),
-                transmittance.getColumn("id", "t_id"), transmittance.getColumn("wavelengthrange", "t_wavelengthrange"),
-                transmittance.getColumn("fraction", "t_fraction"), transmittance.getColumn("fraction_uom", "t_fraction_uom"))
+                        table.getColumn("glazingratio_uom"), reflectance.getColumn("id", "r_id"), reflectance.getColumn("surface"),
+                        reflectance.getColumn("wavelengthrange"), reflectance.getColumn("fraction"), reflectance.getColumn("fraction_uom"),
+                        transmittance.getColumn("id", "t_id"), transmittance.getColumn("wavelengthrange", "t_wavelengthrange"),
+                        transmittance.getColumn("fraction", "t_fraction"), transmittance.getColumn("fraction_uom", "t_fraction_uom"))
                 .addJoin(JoinFactory.left(reflectance, "opticalproper_reflectance_id", ComparisonName.EQUAL_TO, table.getColumn("id")))
                 .addJoin(JoinFactory.left(transmittance, "opticalprope_transmittanc_id", ComparisonName.EQUAL_TO, table.getColumn("id")));
         select.addSelection(ComparisonFactory.equalTo(table.getColumn("id"), new PlaceHolder<>()));
