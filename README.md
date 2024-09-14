@@ -4,7 +4,8 @@ The Energy ADE extends CityGML by features and properties necessary to perform e
 exchange the corresponding results.
 
 :information_source: The Energy ADE extension is in **maintenance mode** with no significant active development planned.
-Existing bugs will be fixed, but large new features will likely not be added.
+Existing bugs will be fixed, but large new features will likely not be added. Support through contributions or funding
+is welcome.
 
 This extension adds support for managing Energy ADE data inside the 3DCityDB and enables the
 [Importer/Exporter tool](https://github.com/3dcitydb/importer-exporter) to load and export Energy ADE enriched datasets.
