@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'org.citydb.ade'
-version '2.0.0'
+version '2.1.0-SNAPSHOT'
 description 'Energy ADE extension for the 3DCityDB'
 
 java {
