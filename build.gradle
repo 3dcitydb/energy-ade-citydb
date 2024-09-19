@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    api 'org.citydb:impexp-client-gui:5.5.0-SNAPSHOT'
+    api 'org.citydb:impexp-client-gui:5.5.0'
     api 'org.citygml4j.ade:energy-ade-citygml4j:1.1.0'
     
     citygml4j('org.citygml4j.ade:energy-ade-citygml4j:1.1.0') {
