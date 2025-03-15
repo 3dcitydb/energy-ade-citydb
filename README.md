@@ -1,4 +1,13 @@
 # Energy ADE extension for the 3D City Database
+
+> [!NOTE]
+> This repository hosts the 3DCityDB v4 Energy ADE extension. Although 3DCityDB v5 is now available, 3DCityDB v4
+> remains stable and operational. However, it is in **maintenance mode**, meaning no significant new features are
+> planned, though existing bugs will continue to be addressed. Development is now focused on 3DCityDB v5, and we recommend
+> upgrading to benefit from new features and improvements. Please refer to the [3DCityDB v5 user manual](https://3dcitydb.github.io/3dcitydb-mkdocs/)
+> for more information.
+
+
 This is a 3DCityDB extension for the **Energy Application Domain Extension** (Energy ADE) for CityGML.
 The Energy ADE extends CityGML by features and properties necessary to perform energy simulations and to store and
 exchange the corresponding results.
